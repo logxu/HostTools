@@ -1,22 +1,33 @@
 package xyz.xyz0z0.hosttools;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.jakewharton.rxbinding3.view.RxView;
 import com.jakewharton.rxbinding3.widget.RxTextView;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
   @BindView(R.id.input_layout_password) TextInputLayout ilPassword;
   @BindView(R.id.input_password) TextInputEditText etPassword;
+  @BindView(R.id.mainact_back_button) MaterialButton btnBack;
+
+
+  public static Intent getStartIntent(Context context) {
+    return new Intent(context, MainActivity.class);
+  }
 
 
   @Override
@@ -25,37 +36,28 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
 
-    Disposable d = RxTextView.textChanges(etPassword)
-        .subscribe(new Consumer<CharSequence>() {
-          @Override public void accept(CharSequence charSequence) throws Exception {
-            if (charSequence.length() > ilPassword.getCounterMaxLength()) {
-              etPassword.setError("max length " + ilPassword.getCounterMaxLength());
-            } else {
-              etPassword.setError(null);
-            }
-            Log.d("cxg", "charSequence " + charSequence.length());
-            Log.d("cxg", "charSequence " + charSequence.toString());
+    RxView.clicks(btnBack).throttleFirst(2, TimeUnit.SECONDS)
+        .observeOn(AndroidSchedulers.mainThread())
+        .map(o -> btnBack.getText().toString())
+        .subscribe(new Consumer<String>() {
+          @Override public void accept(String s) throws Exception {
+            Toast.makeText(MainActivity.this, s + " test", Toast.LENGTH_SHORT).show();
           }
         });
 
-    // etPassword.addTextChangedListener(new TextWatcher() {
-    //   @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-    //
-    //   }
-    //
-    //
-    //   @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
-    //
-    //   }
-    //
-    //
-    //   @Override public void afterTextChanged(Editable s) {
-    //     if (s.length() > ilPassword.getCounterMaxLength()) {
-    //       etPassword.setError("最大字符" + ilPassword.getCounterMaxLength());
-    //     } else {
-    //       etPassword.setError(null);
-    //     }
-    //   }
-    // });
+    Disposable d = RxTextView.textChanges(etPassword)
+        .map(charSequence -> charSequence.toString())
+        .subscribe(s -> {
+          if (s.length() > ilPassword.getCounterMaxLength()) {
+            etPassword.setError("max length " + ilPassword.getCounterMaxLength());
+          } else {
+            etPassword.setError(null);
+          }
+          Log.d("cxg", "charSequence " + s.length());
+          Log.d("cxg", "charSequence " + s);
+        }, throwable -> {
+
+        });
+
   }
 }
