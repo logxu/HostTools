@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HostTools</string>
+    <string name="add_act_id_hint">请输入 ID</string>
+    <string name="add_act_key_hint">请输入 API KEY</string>
+    <string name="add_act_back_button_text">返回</string>
+    <string name="add_act_submit_button_text">确定</string>
+</resources>

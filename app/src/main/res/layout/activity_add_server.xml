@@ -7,4 +7,77 @@
     android:layout_height="match_parent"
     tools:context=".ui.add.AddServerActivity">
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_layout_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hintTextAppearance="@style/HintText"
+        app:counterEnabled="true"
+        app:counterMaxLength="10"
+        app:errorEnabled="true"
+        app:passwordToggleEnabled="true"
+        app:errorTextAppearance="@style/ErrorText"
+        app:counterTextAppearance="@style/CounterText"
+        app:counterOverflowTextAppearance="@style/CounterOverFlow"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/input_layout_key">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_et_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="@string/add_act_id_hint"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_layout_key"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hintTextAppearance="@style/HintText"
+        app:counterEnabled="true"
+        app:counterMaxLength="32"
+        app:errorEnabled="true"
+        app:passwordToggleEnabled="true"
+        app:errorTextAppearance="@style/ErrorText"
+        app:counterTextAppearance="@style/CounterText"
+        app:counterOverflowTextAppearance="@style/CounterOverFlow"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/mainact_back_button">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:maxLength="32"
+            android:id="@+id/input_et_key"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="@string/add_act_key_hint"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mainact_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_layout_key"
+        app:layout_constraintRight_toLeftOf="@id/mainact_submit_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/add_act_back_button_text"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mainact_submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/mainact_back_button"
+        app:layout_constraintTop_toBottomOf="@id/input_layout_key"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/add_act_submit_button_text"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">HostTools</string>
+    <string name="add_act_id_hint">Please input id.</string>
+    <string name="add_act_key_hint">Please input key.</string>
+    <string name="add_act_back_button_text">Back</string>
+    <string name="add_act_submit_button_text">Submit</string>
 </resources>
