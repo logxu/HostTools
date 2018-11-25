@@ -7,14 +7,19 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.jakewharton.rxbinding3.widget.RxTextView;
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Consumer;
 import xyz.xyz0z0.hosttools.MainActivity;
 import xyz.xyz0z0.hosttools.MvpApp;
 import xyz.xyz0z0.hosttools.R;
 import xyz.xyz0z0.hosttools.data.DataManager;
 
-public class AddServerActivity extends AppCompatActivity implements AddMvpView {
+public class AddServerActivity extends AppCompatActivity implements AddContract.View {
 
-  AddPresenter mAddPresenter;
+  AddContract.Presenter mAddPresenter;
   @BindView(R.id.input_et_id) TextInputEditText etId;
   @BindView(R.id.input_et_key) TextInputEditText etKey;
   @BindView(R.id.mainact_back_button) MaterialButton btnBack;
@@ -27,10 +32,34 @@ public class AddServerActivity extends AppCompatActivity implements AddMvpView {
     setContentView(R.layout.activity_add_server);
     ButterKnife.bind(this);
     DataManager dataManager = ((MvpApp) getApplication()).getDataManager();
-    mAddPresenter = new AddPresenter(dataManager);
-    mAddPresenter.onAttach(this);
+    new AddPresenter(this);
     btnBack.setOnClickListener(v -> onBackButtonClick());
     btnSubmit.setOnClickListener(v -> onSubmitButtonClick());
+
+    Observable<CharSequence> o1 = RxTextView.textChanges(etId);
+    Observable<CharSequence> o2 = RxTextView.textChanges(etKey);
+    Disposable d = Observable.combineLatest(o1, o2, new BiFunction<CharSequence, CharSequence, Boolean>() {
+      @Override public Boolean apply(CharSequence charSequence, CharSequence charSequence2) {
+        return charSequence.toString().trim().length() > 0 && charSequence2.toString().trim().length() == 32;
+      }
+    }).subscribe(new Consumer<Boolean>() {
+      @Override public void accept(Boolean aBoolean) throws Exception {
+        btnSubmit.setEnabled(aBoolean);
+      }
+    });
+
+  }
+
+
+  @Override protected void onResume() {
+    super.onResume();
+    mAddPresenter.subscribe();
+  }
+
+
+  @Override protected void onPause() {
+    super.onPause();
+    mAddPresenter.unsubscribe();
   }
 
 
@@ -48,8 +77,6 @@ public class AddServerActivity extends AppCompatActivity implements AddMvpView {
 
   @Override public void onSubmitButtonClick() {
 
-
-    mAddPresenter.btnSubmitListener();
   }
 
 
@@ -65,5 +92,10 @@ public class AddServerActivity extends AppCompatActivity implements AddMvpView {
 
   @Override public void showErrorDialog() {
 
+  }
+
+
+  @Override public void setPresenter(AddContract.Presenter presenter) {
+    mAddPresenter = presenter;
   }
 }

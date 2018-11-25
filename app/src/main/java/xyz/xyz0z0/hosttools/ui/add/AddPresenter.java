@@ -1,28 +1,40 @@
 package xyz.xyz0z0.hosttools.ui.add;
 
-import xyz.xyz0z0.hosttools.data.DataManager;
-import xyz.xyz0z0.hosttools.ui.base.BasePresenter;
+import androidx.annotation.NonNull;
+import io.reactivex.disposables.CompositeDisposable;
 
 /**
  * Created by chengxg
  * on 2018/11/24
  */
-public class AddPresenter<V extends AddMvpView> extends BasePresenter<V> implements AddMvpPresenter<V> {
+public class AddPresenter implements AddContract.Presenter {
 
-  public AddPresenter(DataManager dataManager) {
-    super(dataManager);
+  @NonNull
+  private final AddContract.View mAddServerView;
+
+  @NonNull
+  private CompositeDisposable mCompositeDisposable;
+
+
+  public AddPresenter(@NonNull AddContract.View addServerView) {
+    this.mAddServerView = addServerView;
+    mCompositeDisposable = new CompositeDisposable();
+    mAddServerView.setPresenter(this);
+
   }
 
 
-
-
-
-  @Override public void btnBackListener() {
+  @Override public void submit() {
 
   }
 
 
-  @Override public void btnSubmitListener() {
+  @Override public void subscribe() {
 
+  }
+
+
+  @Override public void unsubscribe() {
+    mCompositeDisposable.clear();
   }
 }
