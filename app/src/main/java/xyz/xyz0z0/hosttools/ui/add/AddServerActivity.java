@@ -12,6 +12,7 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
+import java.util.Objects;
 import xyz.xyz0z0.hosttools.MainActivity;
 import xyz.xyz0z0.hosttools.MvpApp;
 import xyz.xyz0z0.hosttools.R;
@@ -76,7 +77,9 @@ public class AddServerActivity extends AppCompatActivity implements AddContract.
 
 
   @Override public void onSubmitButtonClick() {
-
+    String veid = Objects.requireNonNull(etId.getText()).toString();
+    String apikey = Objects.requireNonNull(etKey.getText()).toString();
+    mAddPresenter.submit(veid, apikey);
   }
 
 

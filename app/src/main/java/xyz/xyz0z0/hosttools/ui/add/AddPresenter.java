@@ -24,7 +24,7 @@ public class AddPresenter implements AddContract.Presenter {
   }
 
 
-  @Override public void submit() {
+  @Override public void submit(String veid, String apikey) {
 
   }
 

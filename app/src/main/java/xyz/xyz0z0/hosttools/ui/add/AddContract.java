@@ -27,7 +27,7 @@ public interface AddContract {
 
   interface Presenter extends BasePresenter{
 
-    void submit();
+    void submit(String veid,String apikey);
 
   }
 }
