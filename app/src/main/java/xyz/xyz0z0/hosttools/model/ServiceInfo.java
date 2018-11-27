@@ -1,6 +1,5 @@
 package xyz.xyz0z0.hosttools.model;
 
-import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
@@ -56,7 +55,6 @@ public class ServiceInfo {
   private int data_counter;
   private int data_next_reset;
   private boolean rdns_api_available;
-  private PtrBean ptr;
   private boolean suspended;
   private int error;
   private List<String> ip_addresses;
@@ -182,12 +180,6 @@ public class ServiceInfo {
   public void setRdns_api_available(boolean rdns_api_available) { this.rdns_api_available = rdns_api_available;}
 
 
-  public PtrBean getPtr() { return ptr;}
-
-
-  public void setPtr(PtrBean ptr) { this.ptr = ptr;}
-
-
   public boolean isSuspended() { return suspended;}
 
 
@@ -205,28 +197,4 @@ public class ServiceInfo {
 
   public void setIp_addresses(List<String> ip_addresses) { this.ip_addresses = ip_addresses;}
 
-
-  public static class PtrBean {
-    @SerializedName("172.93.44.90") private Object _$_172934490100; // FIXME check this code
-    @SerializedName("2607:8700:112:ab2a::") private String _$_26078700112Ab2a193; // FIXME check this code
-    @SerializedName("2607:8700:112:ab2a:1:1:1:1") private String _$_26078700112Ab2a1111149; // FIXME check this code
-
-
-    public Object get_$_172934490100() { return _$_172934490100;}
-
-
-    public void set_$_172934490100(Object _$_172934490100) { this._$_172934490100 = _$_172934490100;}
-
-
-    public String get_$_26078700112Ab2a193() { return _$_26078700112Ab2a193;}
-
-
-    public void set_$_26078700112Ab2a193(String _$_26078700112Ab2a193) { this._$_26078700112Ab2a193 = _$_26078700112Ab2a193;}
-
-
-    public String get_$_26078700112Ab2a1111149() { return _$_26078700112Ab2a1111149;}
-
-
-    public void set_$_26078700112Ab2a1111149(String _$_26078700112Ab2a1111149) { this._$_26078700112Ab2a1111149 = _$_26078700112Ab2a1111149;}
-  }
 }

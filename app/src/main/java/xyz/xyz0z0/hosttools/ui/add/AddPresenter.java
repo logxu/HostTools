@@ -1,7 +1,13 @@
 package xyz.xyz0z0.hosttools.ui.add;
 
+import android.util.Log;
 import androidx.annotation.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+import xyz.xyz0z0.hosttools.model.ServiceInfo;
+import xyz.xyz0z0.hosttools.net.Network;
 
 /**
  * Created by chengxg
@@ -25,7 +31,19 @@ public class AddPresenter implements AddContract.Presenter {
 
 
   @Override public void submit(String veid, String apikey) {
-
+    Disposable d = Network.getApiService()
+        .getServiceInfo(veid, apikey)
+        .subscribeOn(Schedulers.io())
+        .subscribe(new Consumer<ServiceInfo>() {
+          @Override public void accept(ServiceInfo serviceInfo) throws Exception {
+            Log.d("cxg", "serviceInfo " + serviceInfo.getEmail());
+          }
+        }, new Consumer<Throwable>() {
+          @Override public void accept(Throwable throwable) throws Exception {
+            throwable.printStackTrace();
+          }
+        });
+    mCompositeDisposable.add(d);
   }
 
 

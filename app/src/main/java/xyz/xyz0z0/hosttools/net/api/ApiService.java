@@ -13,5 +13,5 @@ public interface ApiService {
   //https://api.64clouds.com/v1/getServiceInfo?veid=61026&api_key=YOUR_API_KEY_HERE
 
   @GET("getServiceInfo")
-  Observable<ServiceInfo> getServiceInfo(@Query("veid") int veId, @Query("api_key") String apiKey);
+  Observable<ServiceInfo> getServiceInfo(@Query("veid") String veId, @Query("api_key") String apiKey);
 }
