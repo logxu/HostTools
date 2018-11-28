@@ -2,6 +2,7 @@ package xyz.xyz0z0.hosttools.ui.add;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,7 +50,6 @@ public class AddServerActivity extends AppCompatActivity implements AddContract.
       }
     });
 
-
   }
 
 
@@ -95,7 +95,7 @@ public class AddServerActivity extends AppCompatActivity implements AddContract.
 
 
   @Override public void showErrorDialog() {
-
+    Toast.makeText(this, "网络连接错误", Toast.LENGTH_SHORT).show();
   }
 
 

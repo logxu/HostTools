@@ -13,7 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-
         </activity>
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
@@ -23,6 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.add.AddServerActivity">
+        </activity>
+        <activity android:name=".Main2Activity">
         </activity>
     </application>
 
