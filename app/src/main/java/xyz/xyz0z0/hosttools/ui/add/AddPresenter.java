@@ -41,6 +41,7 @@ public class AddPresenter implements AddContract.Presenter {
         }, new Consumer<Throwable>() {
           @Override public void accept(Throwable throwable) throws Exception {
             throwable.printStackTrace();
+            mAddServerView.showErrorDialog();
           }
         });
     mCompositeDisposable.add(d);
