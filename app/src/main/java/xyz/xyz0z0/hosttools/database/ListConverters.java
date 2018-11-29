@@ -6,7 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class ListConverters {
+class ListConverters {
 
   //Type listType = new TypeToken<List<String>>() {}.getType();
   //     List<String> target = new LinkedList<String>();
@@ -17,21 +17,19 @@ public class ListConverters {
 
 
   @TypeConverter
-  public static List<String> fromString(String value) {
+  static List<String> fromString(String value) {
 
     Type listType = new TypeToken<List<String>>() {}.getType();
     Gson gson = new Gson();
-    List<String> target2 = gson.fromJson(value, listType);
-    return target2;
+    return gson.fromJson(value, listType);
   }
 
 
   @TypeConverter
-  public static String listToString(List<String> value) {
+  static String listToString(List<String> value) {
     Type listType = new TypeToken<List<String>>() {}.getType();
     Gson gson = new Gson();
-    String json = gson.toJson(value, listType);
-    return json;
+    return gson.toJson(value, listType);
   }
 
 }

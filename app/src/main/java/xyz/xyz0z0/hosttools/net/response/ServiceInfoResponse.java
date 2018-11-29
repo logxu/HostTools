@@ -1,4 +1,4 @@
-package xyz.xyz0z0.hosttools.model;
+package xyz.xyz0z0.hosttools.net.response;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import java.util.List;
  * Created by chengxg
  * on 2018/11/26
  */
-public class ServiceInfo {
+public class ServiceInfoResponse {
 
   /**
    * vm_type : ovz

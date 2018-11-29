@@ -12,6 +12,7 @@ import xyz.xyz0z0.hosttools.constants.NetErrorCode;
 import xyz.xyz0z0.hosttools.database.ServiceInfo;
 import xyz.xyz0z0.hosttools.database.ServiceInfoDao;
 import xyz.xyz0z0.hosttools.net.Network;
+import xyz.xyz0z0.hosttools.net.response.ServiceInfoResponse;
 
 /**
  * Created by chengxg
@@ -40,12 +41,11 @@ public class AddPresenter implements AddContract.Presenter {
   @Override public void submit(String veid, String apikey) {
     Disposable d = Network.getApiService()
         .getServiceInfo(veid, apikey)
-        .map(new Function<ServiceInfo, Boolean>() {
-          @Override public Boolean apply(ServiceInfo serviceInfo) {
-            if (serviceInfo.getError() == NetErrorCode.SUCCESS) {
-              serviceInfo.setVeId(Integer.parseInt(veid));
-              // KeyInfo keyInfo = new KeyInfo(Integer.parseInt(veid), apikey);
-              long[] result = serviceInfoDao.insert(serviceInfo);
+        .map(new Function<ServiceInfoResponse, Boolean>() {
+          @Override public Boolean apply(ServiceInfoResponse serviceInfoResponse) {
+            if (serviceInfoResponse.getError() == NetErrorCode.SUCCESS) {
+              ServiceInfo info = new ServiceInfo(Integer.parseInt(veid), apikey, serviceInfoResponse);
+              long[] result = serviceInfoDao.insert(info);
               return result.length == 1;
             } else {
               return false;
@@ -68,23 +68,6 @@ public class AddPresenter implements AddContract.Presenter {
             mAddServerView.showErrorDialog();
           }
         });
-    // .subscribe(new Consumer<ServiceInfo>() {
-    //   @Override public void accept(ServiceInfo serviceInfo) throws Exception {
-    //     if (serviceInfo.getError() == NetErrorCode.SUCCESS) {
-    //       KeyInfo keyInfo = new KeyInfo(Integer.parseInt(veid), apikey);
-    //       keyInfoDao.insert(keyInfo);
-    //     } else {
-    //       mAddServerView.showErrorDialog();
-    //     }
-    //     Log.d("cxg", "serviceInfo " + serviceInfo.getEmail());
-    //     Log.d("cxg", "serviceInfo " + serviceInfo.getError());
-    //   }
-    // }, new Consumer<Throwable>() {
-    //   @Override public void accept(Throwable throwable) throws Exception {
-    //     throwable.printStackTrace();
-    //     mAddServerView.showErrorDialog();
-    //   }
-    // });
     mCompositeDisposable.add(d);
   }
 

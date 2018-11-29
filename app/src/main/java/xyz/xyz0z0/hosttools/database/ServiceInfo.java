@@ -3,10 +3,11 @@ package xyz.xyz0z0.hosttools.database;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
-import com.google.gson.annotations.Expose;
 import java.util.List;
+import xyz.xyz0z0.hosttools.net.response.ServiceInfoResponse;
 
 /**
  * Created by chengxg
@@ -15,43 +16,18 @@ import java.util.List;
 @Entity(tableName = "service_info", indices = { @Index(value = "veid", unique = true) })
 public class ServiceInfo {
 
-  @Expose
   @PrimaryKey(autoGenerate = true)
   @NonNull
   @ColumnInfo(name = "id")
   private long id;
 
-  @Expose
   @NonNull
   @ColumnInfo(name = "veid")
   private int veId;
 
-  /**
-   * vm_type : ovz
-   * hostname : band9
-   * node_ip : 98.142.136.14
-   * node_alias : v1104
-   * node_location : US, California
-   * node_location_id : USCA_4
-   * node_datacenter : US: Los Angeles, California (DC4 MCOM)
-   * location_ipv6_ready : true
-   * plan : wagon5promov2
-   * plan_monthly_data : 536870912000
-   * monthly_data_multiplier : 1
-   * plan_disk : 5368709120
-   * plan_ram : 536870912
-   * plan_swap : 67108864
-   * plan_max_ipv6s : 3
-   * os : centos-7-x86_64-minimal
-   * email : mail201302@gmail.com
-   * data_counter : 299113954
-   * data_next_reset : 1544245200
-   * ip_addresses : ["172.93.44.90","2607:8700:112:ab2a::","2607:8700:112:ab2a:1:1:1:1"]
-   * rdns_api_available : true
-   * ptr : {"172.93.44.90":null,"2607:8700:112:ab2a::":"","2607:8700:112:ab2a:1:1:1:1":""}
-   * suspended : false
-   * error : 0
-   */
+  @NonNull
+  @ColumnInfo(name = "api_key")
+  private String apiKey;
 
   private String vm_type;
   private String hostname;
@@ -74,8 +50,40 @@ public class ServiceInfo {
   private int data_next_reset;
   private boolean rdns_api_available;
   private boolean suspended;
-  private int error;
   private List<String> ip_addresses;
+
+
+  public ServiceInfo() {
+  }
+
+
+  @Ignore
+  public ServiceInfo(@NonNull int veId, @NonNull String apiKey, @NonNull ServiceInfoResponse response) {
+    this.veId = veId;
+    this.apiKey = apiKey;
+    this.vm_type = response.getVm_type();
+    this.hostname = response.getHostname();
+    this.node_ip = response.getNode_ip();
+    this.node_alias = response.getNode_alias();
+    this.node_location = response.getNode_location();
+    this.node_location_id = response.getNode_location_id();
+    this.node_datacenter = response.getNode_datacenter();
+    this.location_ipv6_ready = response.isLocation_ipv6_ready();
+    this.plan = response.getPlan();
+    this.plan_monthly_data = response.getPlan_monthly_data();
+    this.monthly_data_multiplier = response.getMonthly_data_multiplier();
+    this.plan_disk = response.getPlan_disk();
+    this.plan_ram = response.getPlan_ram();
+    this.plan_swap = response.getPlan_swap();
+    this.plan_max_ipv6s = response.getPlan_max_ipv6s();
+    this.os = response.getOs();
+    this.email = response.getEmail();
+    this.data_counter = response.getData_counter();
+    this.data_next_reset = response.getData_next_reset();
+    this.rdns_api_available = response.isRdns_api_available();
+    this.suspended = response.isSuspended();
+    this.ip_addresses = response.getIp_addresses();
+  }
 
 
   @NonNull public long getId() {
@@ -95,6 +103,16 @@ public class ServiceInfo {
 
   public void setVeId(@NonNull int veId) {
     this.veId = veId;
+  }
+
+
+  @NonNull public String getApiKey() {
+    return apiKey;
+  }
+
+
+  public void setApiKey(@NonNull String apiKey) {
+    this.apiKey = apiKey;
   }
 
 
@@ -222,12 +240,6 @@ public class ServiceInfo {
 
 
   public void setSuspended(boolean suspended) { this.suspended = suspended;}
-
-
-  public int getError() { return error;}
-
-
-  public void setError(int error) { this.error = error;}
 
 
   public List<String> getIp_addresses() { return ip_addresses;}

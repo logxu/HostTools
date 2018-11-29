@@ -30,7 +30,6 @@ public abstract class RoomDb extends RoomDatabase {
   }
 
 
-  // public abstract KeyInfoDao keyInfoDao();
   public abstract ServiceInfoDao serviceInfoDao();
 
 }
