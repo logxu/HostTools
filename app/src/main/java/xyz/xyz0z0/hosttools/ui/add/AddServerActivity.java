@@ -90,7 +90,7 @@ public class AddServerActivity extends AppCompatActivity implements AddContract.
 
 
   @Override public void showSuccessDialog() {
-
+    Toast.makeText(this, "成功", Toast.LENGTH_SHORT).show();
   }
 
 

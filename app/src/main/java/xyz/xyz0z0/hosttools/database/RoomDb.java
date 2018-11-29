@@ -4,12 +4,14 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 /**
  * Created by chengxg
  * on 2018/11/26
  */
-@Database(entities = { KeyInfo.class }, version = 1, exportSchema = false)
+@Database(entities = { ServiceInfo.class }, version = 1, exportSchema = false)
+@TypeConverters({ ListConverters.class })
 public abstract class RoomDb extends RoomDatabase {
 
   private static volatile RoomDb INSTANCE;
@@ -28,6 +30,7 @@ public abstract class RoomDb extends RoomDatabase {
   }
 
 
-  public abstract KeyInfoDao keyInfoDao();
+  // public abstract KeyInfoDao keyInfoDao();
+  public abstract ServiceInfoDao serviceInfoDao();
 
 }

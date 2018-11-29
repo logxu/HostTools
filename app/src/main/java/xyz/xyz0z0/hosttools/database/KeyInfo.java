@@ -3,13 +3,14 @@ package xyz.xyz0z0.hosttools.database;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
  * Created by chengxg
  * on 2018/11/26
  */
-@Entity(tableName = "key_info")
+@Entity(tableName = "key_info", indices = { @Index(value = "veid", unique = true) })
 public class KeyInfo {
 
   @PrimaryKey(autoGenerate = true)

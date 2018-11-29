@@ -3,7 +3,7 @@ package xyz.xyz0z0.hosttools.net.api;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import xyz.xyz0z0.hosttools.model.ServiceInfo;
+import xyz.xyz0z0.hosttools.database.ServiceInfo;
 
 /**
  * Created by chengxg
