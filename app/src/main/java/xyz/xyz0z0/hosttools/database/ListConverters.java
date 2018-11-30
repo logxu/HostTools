@@ -17,7 +17,7 @@ class ListConverters {
 
 
   @TypeConverter
-  static List<String> fromString(String value) {
+  public static List<String> fromString(String value) {
 
     Type listType = new TypeToken<List<String>>() {}.getType();
     Gson gson = new Gson();
@@ -26,7 +26,7 @@ class ListConverters {
 
 
   @TypeConverter
-  static String listToString(List<String> value) {
+  public static String listToString(List<String> value) {
     Type listType = new TypeToken<List<String>>() {}.getType();
     Gson gson = new Gson();
     return gson.toJson(value, listType);

@@ -4,4 +4,6 @@
     <string name="add_act_key_hint">Please input key.</string>
     <string name="add_act_back_button_text">Back</string>
     <string name="add_act_submit_button_text">Submit</string>
+    <string name="base_loading_text">Please wait.</string>
+    <string name="base_dialog_ok">OK</string>
 </resources>

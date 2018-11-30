@@ -1,5 +1,6 @@
 package xyz.xyz0z0.hosttools.ui.add;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -49,6 +50,10 @@ public class AddServerActivity extends AppCompatActivity implements AddContract.
         btnSubmit.setEnabled(aBoolean);
       }
     });
+
+    ProgressDialog progressDialog = new ProgressDialog(this);
+    progressDialog.setMessage(getString(R.string.base_loading_text));
+    progressDialog.show();
 
   }
 
