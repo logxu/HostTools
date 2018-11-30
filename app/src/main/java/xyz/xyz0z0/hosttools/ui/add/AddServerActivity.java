@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.android.material.button.MaterialButton;
@@ -18,9 +17,10 @@ import java.util.Objects;
 import xyz.xyz0z0.hosttools.MainActivity;
 import xyz.xyz0z0.hosttools.MvpApp;
 import xyz.xyz0z0.hosttools.R;
+import xyz.xyz0z0.hosttools.base.BaseActivity;
 import xyz.xyz0z0.hosttools.data.DataManager;
 
-public class AddServerActivity extends AppCompatActivity implements AddContract.View {
+public class AddServerActivity extends BaseActivity<AddContract.Presenter> implements AddContract.View {
 
   AddContract.Presenter mAddPresenter;
   @BindView(R.id.input_et_id) TextInputEditText etId;
@@ -51,9 +51,9 @@ public class AddServerActivity extends AppCompatActivity implements AddContract.
       }
     });
 
-    ProgressDialog progressDialog = new ProgressDialog(this);
-    progressDialog.setMessage(getString(R.string.base_loading_text));
-    progressDialog.show();
+    // ProgressDialog progressDialog = new ProgressDialog(this);
+    // progressDialog.setMessage(getString(R.string.base_loading_text));
+    // progressDialog.show();
 
   }
 
@@ -89,19 +89,7 @@ public class AddServerActivity extends AppCompatActivity implements AddContract.
   }
 
 
-  @Override public void showLoadingDialog() {
 
-  }
-
-
-  @Override public void showSuccessDialog() {
-    Toast.makeText(this, "成功", Toast.LENGTH_SHORT).show();
-  }
-
-
-  @Override public void showErrorDialog() {
-    Toast.makeText(this, "网络连接错误", Toast.LENGTH_SHORT).show();
-  }
 
 
   @Override public void setPresenter(AddContract.Presenter presenter) {

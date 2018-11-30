@@ -8,6 +8,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import xyz.xyz0z0.hosttools.MvpApp;
+import xyz.xyz0z0.hosttools.R;
 import xyz.xyz0z0.hosttools.constants.NetErrorCode;
 import xyz.xyz0z0.hosttools.database.ServiceInfo;
 import xyz.xyz0z0.hosttools.database.ServiceInfoDao;
@@ -39,8 +40,8 @@ public class AddPresenter implements AddContract.Presenter {
 
 
   @Override public void submit(String veid, String apikey) {
-    Disposable d = Network.getApiService()
-        .getServiceInfo(veid, apikey)
+    mAddServerView.showLoadingDialog(R.string.base_loading_text);
+    Disposable d = Network.getApiService().getServiceInfo(veid, apikey)
         .map(new Function<ServiceInfoResponse, Boolean>() {
           @Override public Boolean apply(ServiceInfoResponse serviceInfoResponse) {
             if (serviceInfoResponse.getError() == NetErrorCode.SUCCESS) {
@@ -56,16 +57,18 @@ public class AddPresenter implements AddContract.Presenter {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(new Consumer<Boolean>() {
           @Override public void accept(Boolean aBoolean) throws Exception {
+            mAddServerView.dismissLoadingDialog();
             if (aBoolean) {
-              mAddServerView.showSuccessDialog();
+              mAddServerView.showSuccessDialog("成功");
             } else {
-              mAddServerView.showErrorDialog();
+              mAddServerView.showErrorDialog("失败");
             }
           }
         }, new Consumer<Throwable>() {
           @Override public void accept(Throwable throwable) throws Exception {
             throwable.printStackTrace();
-            mAddServerView.showErrorDialog();
+            mAddServerView.dismissLoadingDialog();
+            mAddServerView.showErrorDialog("失败");
           }
         });
     mCompositeDisposable.add(d);

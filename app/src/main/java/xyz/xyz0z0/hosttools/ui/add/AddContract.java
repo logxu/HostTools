@@ -1,7 +1,7 @@
 package xyz.xyz0z0.hosttools.ui.add;
 
-import xyz.xyz0z0.hosttools.base.BasePresenter;
-import xyz.xyz0z0.hosttools.base.BaseView;
+import xyz.xyz0z0.hosttools.base.MvpPresenter;
+import xyz.xyz0z0.hosttools.base.MvpView;
 
 /**
  * Created by chengxg
@@ -9,7 +9,7 @@ import xyz.xyz0z0.hosttools.base.BaseView;
  */
 public interface AddContract {
 
-  interface View extends BaseView<Presenter>{
+  interface View extends MvpView<Presenter> {
 
     void openMainActivity();
 
@@ -17,15 +17,11 @@ public interface AddContract {
 
     void onSubmitButtonClick();
 
-    void showLoadingDialog();
 
-    void showSuccessDialog();
-
-    void showErrorDialog();
 
   }
 
-  interface Presenter extends BasePresenter{
+  interface Presenter extends MvpPresenter {
 
     void submit(String veid,String apikey);
 
