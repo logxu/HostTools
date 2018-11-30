@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import java.util.List;
 import xyz.xyz0z0.hosttools.net.response.ServiceInfoResponse;
@@ -13,14 +12,10 @@ import xyz.xyz0z0.hosttools.net.response.ServiceInfoResponse;
  * Created by chengxg
  * on 2018/11/26
  */
-@Entity(tableName = "service_info", indices = { @Index(value = "veid", unique = true) })
+@Entity(tableName = "service_info")
 public class ServiceInfo {
 
-  @PrimaryKey(autoGenerate = true)
-  @NonNull
-  @ColumnInfo(name = "id")
-  private long id;
-
+  @PrimaryKey
   @NonNull
   @ColumnInfo(name = "veid")
   private int veId;
@@ -46,7 +41,7 @@ public class ServiceInfo {
   private int plan_max_ipv6s;
   private String os;
   private String email;
-  private int data_counter;
+  private long data_counter;
   private int data_next_reset;
   private boolean rdns_api_available;
   private boolean suspended;
@@ -83,16 +78,6 @@ public class ServiceInfo {
     this.rdns_api_available = response.isRdns_api_available();
     this.suspended = response.isSuspended();
     this.ip_addresses = response.getIp_addresses();
-  }
-
-
-  @NonNull public long getId() {
-    return id;
-  }
-
-
-  public void setId(@NonNull long id) {
-    this.id = id;
   }
 
 
@@ -218,10 +203,10 @@ public class ServiceInfo {
   public void setEmail(String email) { this.email = email;}
 
 
-  public int getData_counter() { return data_counter;}
+  public long getData_counter() { return data_counter;}
 
 
-  public void setData_counter(int data_counter) { this.data_counter = data_counter;}
+  public void setData_counter(long data_counter) { this.data_counter = data_counter;}
 
 
   public int getData_next_reset() { return data_next_reset;}

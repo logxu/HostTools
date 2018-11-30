@@ -10,7 +10,7 @@ import java.util.List;
 @Dao
 public interface ServiceInfoDao {
 
-  @Insert(onConflict = OnConflictStrategy.FAIL)
+  @Insert
   long[] insert(ServiceInfo... serviceInfos);
 
   @Query("SELECT * FROM service_info")

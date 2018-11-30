@@ -52,7 +52,7 @@ public class ServiceInfoResponse {
   private int plan_max_ipv6s;
   private String os;
   private String email;
-  private int data_counter;
+  private long data_counter;
   private int data_next_reset;
   private boolean rdns_api_available;
   private boolean suspended;
@@ -162,10 +162,10 @@ public class ServiceInfoResponse {
   public void setEmail(String email) { this.email = email;}
 
 
-  public int getData_counter() { return data_counter;}
+  public long getData_counter() { return data_counter;}
 
 
-  public void setData_counter(int data_counter) { this.data_counter = data_counter;}
+  public void setData_counter(long data_counter) { this.data_counter = data_counter;}
 
 
   public int getData_next_reset() { return data_next_reset;}

@@ -18,7 +18,7 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V> i
     if (getDataManager().getDataExists()) {
       getMvpView().openMainActivity();
     } else {
-      getMvpView().openAddServerActivity();
+      getMvpView().openMainActivity();
     }
 
 

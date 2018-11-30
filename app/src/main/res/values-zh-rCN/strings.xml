@@ -7,4 +7,7 @@
     <string name="add_act_submit_button_text">确定</string>
     <string name="base_loading_text">请等待</string>
     <string name="base_dialog_ok">确定</string>
+
+    <string name="add_server_success">添加服务器成功</string>
+    <string name="add_server_fail">添加服务器失败</string>
 </resources>

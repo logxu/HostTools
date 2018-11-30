@@ -56,19 +56,20 @@ public class AddPresenter implements AddContract.Presenter {
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(new Consumer<Boolean>() {
-          @Override public void accept(Boolean aBoolean) throws Exception {
+          @Override public void accept(Boolean aBoolean) {
             mAddServerView.dismissLoadingDialog();
             if (aBoolean) {
-              mAddServerView.showSuccessDialog("成功");
+              mAddServerView.showToast(R.string.add_server_success);
             } else {
-              mAddServerView.showErrorDialog("失败");
+              mAddServerView.showToast(R.string.add_server_fail);
             }
           }
         }, new Consumer<Throwable>() {
-          @Override public void accept(Throwable throwable) throws Exception {
+          @Override public void accept(Throwable throwable) {
+            //SQLiteConstraintException
             throwable.printStackTrace();
             mAddServerView.dismissLoadingDialog();
-            mAddServerView.showErrorDialog("失败");
+            mAddServerView.showErrorDialog(R.string.add_server_fail, null);
           }
         });
     mCompositeDisposable.add(d);

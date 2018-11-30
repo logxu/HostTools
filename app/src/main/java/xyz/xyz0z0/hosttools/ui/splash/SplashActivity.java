@@ -1,6 +1,5 @@
 package xyz.xyz0z0.hosttools.ui.splash;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,14 +14,12 @@ public class SplashActivity extends AppCompatActivity implements SplashMvpView {
   SplashPresenter mSplashPresenter;
 
 
-
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_splash);
 
-    DataManager dataManager = ((MvpApp)getApplication()).getDataManager();
+    DataManager dataManager = ((MvpApp) getApplication()).getDataManager();
     mSplashPresenter = new SplashPresenter(dataManager);
     mSplashPresenter.onAttach(this);
     mSplashPresenter.decideNextActivity();

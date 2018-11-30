@@ -6,4 +6,7 @@
     <string name="add_act_submit_button_text">Submit</string>
     <string name="base_loading_text">Please wait.</string>
     <string name="base_dialog_ok">OK</string>
+
+    <string name="add_server_success">Add server success.</string>
+    <string name="add_server_fail">Add server fail.</string>
 </resources>

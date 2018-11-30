@@ -1,8 +1,11 @@
 package xyz.xyz0z0.hosttools.base;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import xyz.xyz0z0.hosttools.R;
 
 /**
  * Created by chengxg
@@ -27,13 +30,16 @@ public abstract class BaseActivity<T extends MvpPresenter> extends AppCompatActi
   }
 
 
-  @Override public void showErrorDialog(String msg) {
-    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+  @Override public void showToast(int resId) {
+    Toast.makeText(this, getString(resId), Toast.LENGTH_SHORT).show();
   }
 
 
-  @Override public void showSuccessDialog(String msg) {
-    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+  @Override public void showErrorDialog(int resId, DialogInterface.OnClickListener listener) {
+    new AlertDialog.Builder(this)
+        .setMessage(getString(resId))
+        .setPositiveButton(getString(R.string.base_dialog_ok), listener)
+        .show();
   }
 
 
