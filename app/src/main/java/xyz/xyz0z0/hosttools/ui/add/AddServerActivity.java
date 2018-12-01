@@ -1,9 +1,7 @@
 package xyz.xyz0z0.hosttools.ui.add;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.android.material.button.MaterialButton;
@@ -14,7 +12,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import java.util.Objects;
-import xyz.xyz0z0.hosttools.MainActivity;
+import xyz.xyz0z0.hosttools.ui.main.MainActivity;
 import xyz.xyz0z0.hosttools.MvpApp;
 import xyz.xyz0z0.hosttools.R;
 import xyz.xyz0z0.hosttools.base.BaseActivity;

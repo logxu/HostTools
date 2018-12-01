@@ -5,56 +5,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:fitsSystemWindows="true"
+    tools:context=".ui.main.MainActivity">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_layout_password"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:hintTextAppearance="@style/HintText"
-        app:counterEnabled="true"
-        app:counterMaxLength="10"
-        app:errorEnabled="true"
-        app:passwordToggleEnabled="true"
-        app:errorTextAppearance="@style/ErrorText"
-        app:counterTextAppearance="@style/CounterText"
-        app:counterOverflowTextAppearance="@style/CounterOverFlow"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/input_layout_password1">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_password"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/main_act_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="test"/>
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_layout_password1"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/input_layout_password">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_password1"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="test"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/mainact_back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_layout_password1"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="HAHAHA"/>
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/zero_horizontal_margin_big_activity"
+            android:paddingEnd="@dimen/zero_horizontal_margin_big_activity"
+            android:background="@color/activity_background"
+            />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

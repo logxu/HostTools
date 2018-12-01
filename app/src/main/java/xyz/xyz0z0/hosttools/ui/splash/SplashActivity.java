@@ -3,7 +3,7 @@ package xyz.xyz0z0.hosttools.ui.splash;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import xyz.xyz0z0.hosttools.MainActivity;
+import xyz.xyz0z0.hosttools.ui.main.MainActivity;
 import xyz.xyz0z0.hosttools.MvpApp;
 import xyz.xyz0z0.hosttools.R;
 import xyz.xyz0z0.hosttools.data.DataManager;
