@@ -15,10 +15,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import xyz.xyz0z0.hosttools.R;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements onMoveAndSwipedListener {
 
   private final int TYPE_NORMAL = 1;
   private final int TYPE_FOOTER = 2;
@@ -148,6 +149,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
       default:
         return TYPE_NORMAL;
     }
+  }
+
+
+  @Override public boolean onItemMove(int fromPosition, int toPostition) {
+    Collections.swap(mItems, fromPosition, toPostition);
+    notifyItemMoved(fromPosition, toPostition);
+    return true;
+  }
+
+
+  @Override public void onItemDismiss(int position) {
+    mItems.remove(position);
+    notifyItemRemoved(position);
+    Toast.makeText(context, "dismiss", Toast.LENGTH_SHORT).show();
   }
 
 
