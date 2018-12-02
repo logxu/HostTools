@@ -9,4 +9,15 @@
 
     <string name="add_server_success">Add server success.</string>
     <string name="add_server_fail">Add server fail.</string>
+
+    <!-- String related to RecyclerView -->
+    <string name="title_activity_recycler_view">RecyclerView</string>
+    <string name="tv_recycler_item_1">Swipe down to refresh</string>
+    <string name="tv_recycler_item_2">Swipe left or right to dismiss it</string>
+    <string name="tv_recycler_item_3">Drag up or down to move it</string>
+    <string name="title_activity_share_view">Share View</string>
+    <string name="share_view_press_it">You can press it</string>
+    <string name="no_more_data">No more data</string>
+    <string name="item_swipe_dismissed">Dismissed</string>
+    <string name="item_swipe_undo">Undo</string>
 </resources>

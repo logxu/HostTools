@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
   private String insertData;
   private boolean loading;
   private int loadTimes;
+  private RecyclerViewAdapter adapter;
 
 
   @Override
@@ -80,16 +81,22 @@ public class MainActivity extends AppCompatActivity {
 
 
   private void initView() {
-    if (getScreenWidthDp()>=1200){
-      final GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3);
+    if (getScreenWidthDp() >= 1200) {
+      final GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
       recyclerView.setLayoutManager(gridLayoutManager);
-    }else if (getScreenWidthDp()>=800){
-      final GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
+    } else if (getScreenWidthDp() >= 800) {
+      final GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
       recyclerView.setLayoutManager(gridLayoutManager);
-    }else {
+    } else {
       final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
       recyclerView.setLayoutManager(linearLayoutManager);
     }
+
+    adapter = new RecyclerViewAdapter(this);
+    recyclerView.setAdapter(adapter);
+    adapter.addHeader();
+    adapter.setItems(data);
+    adapter.addFooter();
   }
 
 

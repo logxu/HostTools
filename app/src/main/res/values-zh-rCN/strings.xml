@@ -10,4 +10,15 @@
 
     <string name="add_server_success">添加服务器成功</string>
     <string name="add_server_fail">添加服务器失败</string>
+
+    <!-- String related to RecyclerView -->
+    <string name="title_activity_recycler_view">RecyclerView</string>
+    <string name="tv_recycler_item_1">下拉刷新</string>
+    <string name="tv_recycler_item_2">左右滑动删除条目</string>
+    <string name="tv_recycler_item_3">上下拖动改变条目位置</string>
+    <string name="title_activity_share_view">Share View</string>
+    <string name="share_view_press_it">你可以点按它</string>
+    <string name="no_more_data">没有更多数据了</string>
+    <string name="item_swipe_dismissed">已删除</string>
+    <string name="item_swipe_undo">撤销</string>
 </resources>
