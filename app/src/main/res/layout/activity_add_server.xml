@@ -35,10 +35,10 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        app:layout_constraintVertical_bias="0.2"
         android:id="@+id/input_layout_key"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintVertical_bias="0.2"
         app:hintTextAppearance="@style/HintText"
         app:counterEnabled="true"
         app:counterMaxLength="32"
@@ -64,10 +64,11 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        app:layout_constraintVertical_bias="0.1"
+        style="@style/Widget.MaterialComponents.Button"
         android:id="@+id/mainact_back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintVertical_bias="0.1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_layout_key"
         app:layout_constraintRight_toLeftOf="@id/mainact_submit_button"
@@ -75,10 +76,11 @@
         android:text="@string/add_act_back_button_text"/>
 
     <com.google.android.material.button.MaterialButton
-        app:layout_constraintVertical_bias="0.1"
+        style="@style/Widget.MaterialComponents.Button"
         android:id="@+id/mainact_submit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintVertical_bias="0.1"
         android:enabled="false"
         app:layout_constraintLeft_toRightOf="@id/mainact_back_button"
         app:layout_constraintTop_toBottomOf="@id/input_layout_key"

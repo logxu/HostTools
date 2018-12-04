@@ -10,11 +10,10 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
-import xyz.xyz0z0.hosttools.MvpApp;
 import xyz.xyz0z0.hosttools.R;
 import xyz.xyz0z0.hosttools.constants.NetErrorCode;
+import xyz.xyz0z0.hosttools.data.DataRepository;
 import xyz.xyz0z0.hosttools.database.ServiceInfo;
-import xyz.xyz0z0.hosttools.database.ServiceInfoDao;
 import xyz.xyz0z0.hosttools.net.Network;
 import xyz.xyz0z0.hosttools.net.response.ServiceInfoResponse;
 
@@ -30,15 +29,15 @@ public class AddPresenter implements AddContract.Presenter {
   @NonNull
   private CompositeDisposable mCompositeDisposable;
 
-  private ServiceInfoDao serviceInfoDao;
+  private DataRepository mDataRepository;
 
 
   public AddPresenter(@NonNull AddContract.View addServerView) {
     this.mAddServerView = addServerView;
     mCompositeDisposable = new CompositeDisposable();
-    serviceInfoDao = ((MvpApp) (((AddServerActivity) mAddServerView).getApplication())).getDb().serviceInfoDao();
+    // serviceInfoDao = ((MvpApp) (((AddServerActivity) mAddServerView).getApplication())).getDb().serviceInfoDao();
     mAddServerView.setPresenter(this);
-
+    mDataRepository = DataRepository.getDefault();
   }
 
 
@@ -50,7 +49,7 @@ public class AddPresenter implements AddContract.Presenter {
           @Override public ObservableSource<Long> apply(ServiceInfoResponse response) throws Exception {
             if (response.getError() == NetErrorCode.SUCCESS) {
               ServiceInfo info = new ServiceInfo(Integer.parseInt(veid), apikey, response);
-              return serviceInfoDao.insert(info).toObservable();
+              return mDataRepository.addServer(info);
             } else {
               return Observable.just(0L);
             }

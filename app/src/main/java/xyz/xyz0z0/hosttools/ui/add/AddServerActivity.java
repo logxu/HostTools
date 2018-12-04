@@ -12,11 +12,11 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import java.util.Objects;
-import xyz.xyz0z0.hosttools.ui.main.MainActivity;
 import xyz.xyz0z0.hosttools.MvpApp;
 import xyz.xyz0z0.hosttools.R;
 import xyz.xyz0z0.hosttools.base.BaseActivity;
 import xyz.xyz0z0.hosttools.data.DataManager;
+import xyz.xyz0z0.hosttools.ui.main.MainActivity;
 
 public class AddServerActivity extends BaseActivity<AddContract.Presenter> implements AddContract.View {
 
@@ -85,9 +85,6 @@ public class AddServerActivity extends BaseActivity<AddContract.Presenter> imple
     String apikey = Objects.requireNonNull(etKey.getText()).toString();
     mAddPresenter.submit(veid, apikey);
   }
-
-
-
 
 
   @Override public void setPresenter(AddContract.Presenter presenter) {

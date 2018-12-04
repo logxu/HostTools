@@ -20,7 +20,5 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V> i
     } else {
       getMvpView().openAddServerActivity();
     }
-
-
   }
 }

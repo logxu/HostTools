@@ -1,6 +1,8 @@
 package xyz.xyz0z0.hosttools.data;
 
 import io.reactivex.Maybe;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.disposables.CompositeDisposable;
 import xyz.xyz0z0.hosttools.database.RoomDb;
 import xyz.xyz0z0.hosttools.database.ServiceInfo;
@@ -15,7 +17,6 @@ import static xyz.xyz0z0.hosttools.MvpApp.getAppContext;
 public class DataRepository {
 
   private static volatile DataRepository INSTANCE;
-  private CompositeDisposable disposables;
   private ServiceInfoDao infoDao;
 
 
@@ -37,8 +38,8 @@ public class DataRepository {
   }
 
 
-  public Maybe<Long> addServer(ServiceInfo info) {
-    return infoDao.insert(info);
+  public ObservableSource<Long> addServer(ServiceInfo info) {
+    return infoDao.insert(info).toObservable();
   }
 
 }
