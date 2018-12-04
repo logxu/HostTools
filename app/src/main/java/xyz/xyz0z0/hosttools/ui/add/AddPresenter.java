@@ -1,6 +1,9 @@
 package xyz.xyz0z0.hosttools.ui.add;
 
+import android.database.sqlite.SQLiteConstraintException;
 import androidx.annotation.NonNull;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -41,35 +44,38 @@ public class AddPresenter implements AddContract.Presenter {
 
   @Override public void submit(String veid, String apikey) {
     mAddServerView.showLoadingDialog(R.string.base_loading_text);
-    Disposable d = Network.getApiService().getServiceInfo(veid, apikey)
-        .map(new Function<ServiceInfoResponse, Boolean>() {
-          @Override public Boolean apply(ServiceInfoResponse serviceInfoResponse) {
-            if (serviceInfoResponse.getError() == NetErrorCode.SUCCESS) {
-              ServiceInfo info = new ServiceInfo(Integer.parseInt(veid), apikey, serviceInfoResponse);
-              long[] result = serviceInfoDao.insert(info);
-              return result.length == 1;
+    Disposable d = Network.getApiService()
+        .getServiceInfo(veid, apikey)
+        .flatMap(new Function<ServiceInfoResponse, ObservableSource<Long>>() {
+          @Override public ObservableSource<Long> apply(ServiceInfoResponse response) throws Exception {
+            if (response.getError() == NetErrorCode.SUCCESS) {
+              ServiceInfo info = new ServiceInfo(Integer.parseInt(veid), apikey, response);
+              return serviceInfoDao.insert(info).toObservable();
             } else {
-              return false;
+              return Observable.just(0L);
             }
           }
         })
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Consumer<Boolean>() {
-          @Override public void accept(Boolean aBoolean) {
+        .subscribe(new Consumer<Long>() {
+          @Override public void accept(Long aLong) throws Exception {
             mAddServerView.dismissLoadingDialog();
-            if (aBoolean) {
+            if (aLong > 0) {
               mAddServerView.showToast(R.string.add_server_success);
             } else {
               mAddServerView.showToast(R.string.add_server_fail);
             }
           }
         }, new Consumer<Throwable>() {
-          @Override public void accept(Throwable throwable) {
-            //SQLiteConstraintException
-            throwable.printStackTrace();
+          @Override public void accept(Throwable throwable) throws Exception {
             mAddServerView.dismissLoadingDialog();
-            mAddServerView.showErrorDialog(R.string.add_server_fail, null);
+            if (throwable instanceof SQLiteConstraintException) {
+              mAddServerView.showErrorDialog(R.string.add_server_repeat_fail, null);
+            } else {
+              mAddServerView.showErrorDialog(R.string.add_server_fail, null);
+            }
+            throwable.printStackTrace();
           }
         });
     mCompositeDisposable.add(d);

@@ -12,7 +12,7 @@ import java.util.List;
 public interface ServiceInfoDao {
 
   @Insert
-  Maybe<Long> insert(ServiceInfo... serviceInfos);
+  Maybe<Long> insert(ServiceInfo serviceInfos);
 
   @Query("SELECT * FROM service_info")
   Flowable<List<ServiceInfo>> queryAllInfo();

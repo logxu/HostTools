@@ -25,8 +25,6 @@
         </activity>
         <activity android:name=".ui.add.AddServerActivity">
         </activity>
-        <activity android:name=".Main2Activity">
-        </activity>
     </application>
 
 </manifest>

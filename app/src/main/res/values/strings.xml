@@ -9,6 +9,7 @@
 
     <string name="add_server_success">Add server success.</string>
     <string name="add_server_fail">Add server fail.</string>
+    <string name="add_server_repeat_fail">Repeat server.</string>
 
     <!-- String related to RecyclerView -->
     <string name="title_activity_recycler_view">RecyclerView</string>

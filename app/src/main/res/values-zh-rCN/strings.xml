@@ -10,6 +10,7 @@
 
     <string name="add_server_success">添加服务器成功</string>
     <string name="add_server_fail">添加服务器失败</string>
+    <string name="add_server_repeat_fail">服务器已存在</string>
 
     <!-- String related to RecyclerView -->
     <string name="title_activity_recycler_view">RecyclerView</string>
