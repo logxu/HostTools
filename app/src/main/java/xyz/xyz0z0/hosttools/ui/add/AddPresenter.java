@@ -62,6 +62,7 @@ public class AddPresenter implements AddContract.Presenter {
             mAddServerView.dismissLoadingDialog();
             if (aLong > 0) {
               mAddServerView.showToast(R.string.add_server_success);
+              mAddServerView.exitActivity();
             } else {
               mAddServerView.showToast(R.string.add_server_fail);
             }

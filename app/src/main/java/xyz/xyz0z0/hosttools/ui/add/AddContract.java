@@ -17,7 +17,7 @@ public interface AddContract {
 
     void onSubmitButtonClick();
 
-
+    void exitActivity();
 
   }
 

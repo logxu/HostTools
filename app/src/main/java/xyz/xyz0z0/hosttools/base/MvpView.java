@@ -18,4 +18,6 @@ public interface MvpView<T> {
 
   void showErrorDialog(int resId,DialogInterface.OnClickListener listener);
 
+
+
 }

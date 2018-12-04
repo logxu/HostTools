@@ -89,4 +89,9 @@ public class AddServerActivity extends BaseActivity<AddContract.Presenter> imple
   @Override public void setPresenter(AddContract.Presenter presenter) {
     mAddPresenter = presenter;
   }
+
+
+  @Override public void exitActivity() {
+    finish();
+  }
 }
