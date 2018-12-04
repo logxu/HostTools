@@ -2,27 +2,27 @@ package xyz.xyz0z0.hosttools.ui.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import xyz.xyz0z0.hosttools.ui.main.MainActivity;
-import xyz.xyz0z0.hosttools.MvpApp;
 import xyz.xyz0z0.hosttools.R;
-import xyz.xyz0z0.hosttools.data.DataManager;
+import xyz.xyz0z0.hosttools.base.BaseActivity;
 import xyz.xyz0z0.hosttools.ui.add.AddServerActivity;
+import xyz.xyz0z0.hosttools.ui.main.MainActivity;
 
-public class SplashActivity extends AppCompatActivity implements SplashMvpView {
+public class SplashActivity extends BaseActivity<SplashContract.Presenter> implements SplashContract.View {
 
-  SplashPresenter mSplashPresenter;
+  SplashContract.Presenter mSplashPresenter;
 
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_splash);
+    new SplashPresenter(this);
+    mSplashPresenter.subscribe();
+  }
 
-    DataManager dataManager = ((MvpApp) getApplication()).getDataManager();
-    mSplashPresenter = new SplashPresenter(dataManager);
-    mSplashPresenter.onAttach(this);
-    mSplashPresenter.decideNextActivity();
+
+  @Override protected void onResume() {
+    super.onResume();
   }
 
 
@@ -37,5 +37,10 @@ public class SplashActivity extends AppCompatActivity implements SplashMvpView {
     Intent intent = new Intent(this, AddServerActivity.class);
     startActivity(intent);
     finish();
+  }
+
+
+  @Override public void setPresenter(SplashContract.Presenter presenter) {
+    mSplashPresenter = presenter;
   }
 }

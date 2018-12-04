@@ -2,9 +2,8 @@ package xyz.xyz0z0.hosttools;
 
 import android.app.Application;
 import android.content.Context;
-import xyz.xyz0z0.hosttools.data.DataManager;
-import xyz.xyz0z0.hosttools.data.DefaultPrefsHelper;
-import xyz.xyz0z0.hosttools.database.RoomDb;
+import com.tencent.mmkv.MMKV;
+import xyz.xyz0z0.hosttools.data.DataRepository;
 
 /**
  * Created by chengxg
@@ -13,8 +12,6 @@ import xyz.xyz0z0.hosttools.database.RoomDb;
 public class MvpApp extends Application {
 
   private static MvpApp mInstance;
-  DataManager dataManager;
-  RoomDb roomDb;
 
 
   public static Context getAppContext() {
@@ -32,20 +29,8 @@ public class MvpApp extends Application {
     if (mInstance == null) {
       mInstance = this;
     }
-    DefaultPrefsHelper defaultPrefsHelper = new DefaultPrefsHelper(getApplicationContext());
-    dataManager = new DataManager(defaultPrefsHelper);
-    roomDb = RoomDb.getDatabase(this);
+    MMKV.initialize(this);
 
-  }
-
-
-  public DataManager getDataManager() {
-    return dataManager;
-  }
-
-
-  public RoomDb getDb() {
-    return roomDb;
   }
 
 }

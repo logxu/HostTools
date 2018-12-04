@@ -1,24 +1,41 @@
 package xyz.xyz0z0.hosttools.ui.splash;
 
-import xyz.xyz0z0.hosttools.data.DataManager;
-import xyz.xyz0z0.hosttools.ui.base.BasePresenter;
+import androidx.annotation.NonNull;
+import xyz.xyz0z0.hosttools.data.DataRepository;
 
 /**
  * Created by chengxg
  * on 2018/11/23
  */
-public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V> implements SplashMvpPresenter<V> {
+public class SplashPresenter implements SplashContract.Presenter {
 
-  public SplashPresenter(DataManager dataManager) {
-    super(dataManager);
+  @NonNull
+  private final SplashContract.View mSplashContract;
+  private DataRepository mDataRepository;
+
+
+  public SplashPresenter(@NonNull SplashContract.View splashContract) {
+    this.mSplashContract = splashContract;
+    mSplashContract.setPresenter(this);
+    mDataRepository = DataRepository.getDefault();
   }
 
 
   @Override public void decideNextActivity() {
-    if (getDataManager().getDataExists()) {
-      getMvpView().openAddServerActivity();
+    if (mDataRepository.getServerExists()) {
+      mSplashContract.openMainActivity();
     } else {
-      getMvpView().openAddServerActivity();
+      mSplashContract.openAddServerActivity();
     }
+  }
+
+
+  @Override public void subscribe() {
+    decideNextActivity();
+  }
+
+
+  @Override public void unsubscribe() {
+
   }
 }

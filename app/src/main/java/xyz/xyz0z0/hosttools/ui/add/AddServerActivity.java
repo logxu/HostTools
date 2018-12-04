@@ -32,7 +32,6 @@ public class AddServerActivity extends BaseActivity<AddContract.Presenter> imple
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_add_server);
     ButterKnife.bind(this);
-    DataManager dataManager = ((MvpApp) getApplication()).getDataManager();
     new AddPresenter(this);
     btnBack.setOnClickListener(v -> onBackButtonClick());
     btnSubmit.setOnClickListener(v -> onSubmitButtonClick());
