@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import xyz.xyz0z0.hosttools.R;
+import xyz.xyz0z0.hosttools.database.ServiceInfo;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements onMoveAndSwipedListener {
 
@@ -27,7 +28,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   private final String FOOTER = "footer";
   private final String HEADER = "header";
   private Context context;
-  private List<String> mItems;
+  private List<Object> mItems;
   private int color = 0;
   private View parentView;
 
@@ -38,19 +39,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   }
 
 
-  public void setItems(List<String> data) {
+  public void setItems(List<ServiceInfo> data) {
     this.mItems.addAll(data);
     notifyDataSetChanged();
   }
 
 
-  public void addItem(int position, String insertData) {
+  public void addItem(int position, ServiceInfo insertData) {
     mItems.add(position, insertData);
     notifyItemInserted(position);
   }
 
 
-  public void addItems(List<String> data) {
+  public void addItems(List<ServiceInfo> data) {
     mItems.add(HEADER);
     mItems.addAll(data);
     notifyItemInserted(mItems.size() - 1);
@@ -130,6 +131,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
       });
 
+      recyclerViewHolder.tvItem1.setText(((ServiceInfo) mItems.get(position)).getHostname());
+
     }
   }
 
@@ -140,14 +143,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
   @Override public int getItemViewType(int position) {
-    String s = mItems.get(position);
-    switch (s) {
-      case HEADER:
-        return TYPE_HEADER;
-      case FOOTER:
-        return TYPE_FOOTER;
-      default:
-        return TYPE_NORMAL;
+    Object s = mItems.get(position);
+    if (s instanceof String) {
+      switch ((String) s) {
+        case HEADER:
+          return TYPE_HEADER;
+        default:
+          return TYPE_FOOTER;
+      }
+    } else {
+      return TYPE_NORMAL;
     }
   }
 
@@ -169,12 +174,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   private class RecyclerViewHolder extends RecyclerView.ViewHolder {
     private View mView;
     private RelativeLayout rela_round;
+    private TextView tvItem1;
 
 
     private RecyclerViewHolder(@NonNull View itemView) {
       super(itemView);
       mView = itemView;
       rela_round = itemView.findViewById(R.id.rela_round);
+      tvItem1 = itemView.findViewById(R.id.tv_recycler_item_1);
     }
   }
 

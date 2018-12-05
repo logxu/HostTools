@@ -59,6 +59,11 @@ public class DataRepository {
   }
 
 
+  public List<ServiceInfo> getServiceInfoList() {
+    return serviceInfoList;
+  }
+
+
   public void queryAllServer() {
     Disposable d = infoDao.queryAllInfo()
         .subscribeOn(Schedulers.io())

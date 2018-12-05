@@ -15,9 +15,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import java.util.ArrayList;
 import java.util.List;
 import xyz.xyz0z0.hosttools.R;
+import xyz.xyz0z0.hosttools.data.DataRepository;
+import xyz.xyz0z0.hosttools.database.ServiceInfo;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,10 +28,11 @@ public class MainActivity extends AppCompatActivity {
   private FloatingActionButton fab;
 
   private int color = 0;
-  private List<String> data;
+  private List<ServiceInfo> serverData;
   private String insertData;
   private boolean loading;
   private int loadTimes;
+  private DataRepository dataRepository;
   private RecyclerViewAdapter adapter;
   RecyclerView.OnScrollListener scrollChangeListener = new RecyclerView.OnScrollListener() {
     @Override public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             if (loadTimes <= 5) {
               adapter.removeFooter();
               loading = false;
-              adapter.addItems(data);
+              // adapter.addItems(data);
               adapter.addFooter();
               loadTimes++;
             } else {
@@ -52,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
               new Handler().postDelayed(new Runnable() {
                 @Override public void run() {
                   loading = false;
-                  adapter.addFooter();
+                  // adapter.addFooter();
                 }
-              },1000);
+              }, 1000);
 
             }
           }
@@ -70,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
-
     Toolbar toolbar = findViewById(R.id.main_act_toolbar);
     setSupportActionBar(toolbar);
     if (getSupportActionBar() != null) {
@@ -79,37 +80,13 @@ public class MainActivity extends AppCompatActivity {
     initData();
     initView();
 
-    // RxView.clicks(btnBack).throttleFirst(2, TimeUnit.SECONDS)
-    //     .observeOn(AndroidSchedulers.mainThread())
-    //     .map(o -> btnBack.getText().toString())
-    //     .subscribe(new Consumer<String>() {
-    //       @Override public void accept(String s) throws Exception {
-    //         Toast.makeText(MainActivity.this, s + " test", Toast.LENGTH_SHORT).show();
-    //       }
-    //     });
-
-    // Disposable d = RxTextView.textChanges(etPassword)
-    //     .map(charSequence -> charSequence.toString())
-    //     .subscribe(s -> {
-    //       if (s.length() > ilPassword.getCounterMaxLength()) {
-    //         etPassword.setError("max length " + ilPassword.getCounterMaxLength());
-    //       } else {
-    //         etPassword.setError(null);
-    //       }
-    //       Log.d("cxg", "charSequence " + s.length());
-    //       Log.d("cxg", "charSequence " + s);
-    //     }, throwable -> {
-    //
-    //     });
-
   }
 
 
   private void initData() {
-    data = new ArrayList<>();
-    for (int i = 1; i <= 20; i++) {
-      data.add(i + "");
-    }
+    dataRepository = DataRepository.getDefault();
+    serverData = dataRepository.getServiceInfoList();
+
     insertData = "0";
     loadTimes = 0;
   }
@@ -130,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
     adapter = new RecyclerViewAdapter(this);
     recyclerView.setAdapter(adapter);
     adapter.addHeader();
-    adapter.setItems(data);
+    adapter.setItems(serverData);
     adapter.addFooter();
 
     ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(adapter);
