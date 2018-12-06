@@ -3,6 +3,7 @@ package xyz.xyz0z0.hosttools.ui.main;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import java.util.ArrayList;
 import java.util.List;
 import xyz.xyz0z0.hosttools.R;
 import xyz.xyz0z0.hosttools.data.DataRepository;
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
   private int color = 0;
   private List<ServiceInfo> serverData;
+  private List<ServiceInfo> data;
   private String insertData;
   private boolean loading;
   private int loadTimes;
@@ -38,14 +41,32 @@ public class MainActivity extends AppCompatActivity {
     @Override public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
       super.onScrolled(recyclerView, dx, dy);
 
-      final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-      if (!loading && linearLayoutManager.getItemCount() == (linearLayoutManager.findLastVisibleItemPosition() + 1)) {
+      final LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+      Log.d("cxg1", "item-count " + layoutManager.getItemCount());
+      int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
+      Log.d("cxg1", "lastVisiblePosition " + lastVisiblePosition);
+      int visibleChildCount = layoutManager.getChildCount();
+      Log.d("cxgx", "visibleChildCount " + visibleChildCount);
+
+      int lastPosition = layoutManager.findLastCompletelyVisibleItemPosition();
+      Log.d("cxgx", "lastPosition " + lastPosition);
+      int itemCount = layoutManager.getItemCount();
+      Log.d("cxg", "loading " + loading);
+      if (!loading && itemCount <= visibleChildCount) {
+        Log.d("cxg", "ififif");
+        adapter.removeFooter();
+        loading = true;
+      }
+
+      if (!loading && layoutManager.getItemCount() == (layoutManager.findLastVisibleItemPosition() + 1)) {
+        Log.d("cxg1", "---");
         new Handler().postDelayed(new Runnable() {
-          @Override public void run() {
+          @Override
+          public void run() {
             if (loadTimes <= 5) {
               adapter.removeFooter();
               loading = false;
-              // adapter.addItems(data);
+              adapter.addItems(data);
               adapter.addFooter();
               loadTimes++;
             } else {
@@ -54,15 +75,16 @@ public class MainActivity extends AppCompatActivity {
               new Handler().postDelayed(new Runnable() {
                 @Override public void run() {
                   loading = false;
-                  // adapter.addFooter();
+                  adapter.addFooter();
                 }
               }, 1000);
-
             }
           }
-        }, 1500);
+        }, 10000);
+        //
         loading = true;
       }
+
     }
   };
 
@@ -85,7 +107,12 @@ public class MainActivity extends AppCompatActivity {
 
   private void initData() {
     dataRepository = DataRepository.getDefault();
-    serverData = dataRepository.getServiceInfoList();
+    serverData = new ArrayList<>();
+    data = new ArrayList<>();
+    for (int i = 0; i < 2; i++) {
+      serverData.addAll(dataRepository.getServiceInfoList());
+      data.addAll(dataRepository.getServiceInfoList());
+    }
 
     insertData = "0";
     loadTimes = 0;
@@ -129,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
       }
     });
     recyclerView.addOnScrollListener(scrollChangeListener);
+
   }
 
 
