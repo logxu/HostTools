@@ -53,17 +53,21 @@ public class MainActivity extends AppCompatActivity {
       int itemCount = layoutManager.getItemCount();
       Log.d("cxg", "loading " + loading);
       if (!loading && itemCount <= visibleChildCount) {
-        Log.d("cxg", "ififif");
-        adapter.removeFooter();
-        loading = true;
-      }
+        recyclerView.post(new Runnable() {
+          @Override public void run() {
+            Log.d("cxg", "ififif");
+            adapter.removeFooter();
+            loading = true;
+          }
+        });
 
-      if (!loading && layoutManager.getItemCount() == (layoutManager.findLastVisibleItemPosition() + 1)) {
+      } else if (!loading && layoutManager.getItemCount() == (layoutManager.findLastVisibleItemPosition() + 1)) {
         Log.d("cxg1", "---");
+        loading = true;
         new Handler().postDelayed(new Runnable() {
           @Override
           public void run() {
-            if (loadTimes <= 5) {
+            if (loadTimes <= 3) {
               adapter.removeFooter();
               loading = false;
               adapter.addItems(data);
@@ -80,9 +84,9 @@ public class MainActivity extends AppCompatActivity {
               }, 1000);
             }
           }
-        }, 10000);
+        }, 2000);
         //
-        loading = true;
+
       }
 
     }
@@ -146,6 +150,9 @@ public class MainActivity extends AppCompatActivity {
       @Override public void onRefresh() {
         new Handler().postDelayed(new Runnable() {
           @Override public void run() {
+            adapter.addItems(serverData);
+            adapter.addFooter();
+            loading = false;
             if (color > 4) {
               color = 0;
             }

@@ -65,14 +65,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
   public void addFooter() {
-    mItems.add(FOOTER);
-    notifyItemInserted(mItems.size() - 1);
+    if (!mItems.get(mItems.size() - 1).equals(FOOTER)) {
+      mItems.add(FOOTER);
+      notifyItemInserted(mItems.size() - 1);
+    }
   }
 
 
   public void removeFooter() {
-    mItems.remove(mItems.size() - 1);
-    notifyItemRemoved(mItems.size());
+    if (mItems.get(mItems.size() - 1).equals(FOOTER)) {
+      mItems.remove(mItems.size() - 1);
+      notifyItemRemoved(mItems.size());
+    }
   }
 
 
