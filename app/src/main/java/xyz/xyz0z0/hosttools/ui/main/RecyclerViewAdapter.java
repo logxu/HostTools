@@ -135,7 +135,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
       });
 
-      recyclerViewHolder.tvItem1.setText(((ServiceInfo) mItems.get(position)).getHostname());
+      recyclerViewHolder.tvHostname.setText(((ServiceInfo) mItems.get(position)).getHostname());
+      recyclerViewHolder.tvIpAddress.setText(((ServiceInfo) mItems.get(position)).getIp_addresses().get(0));
+      recyclerViewHolder.tvDataCenter.setText(((ServiceInfo) mItems.get(position)).getNode_datacenter());
 
     }
   }
@@ -178,14 +180,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   private class RecyclerViewHolder extends RecyclerView.ViewHolder {
     private View mView;
     private RelativeLayout rela_round;
-    private TextView tvItem1;
+    private TextView tvHostname;
+    private TextView tvIpAddress;
+    private TextView tvDataCenter;
 
 
     private RecyclerViewHolder(@NonNull View itemView) {
       super(itemView);
       mView = itemView;
       rela_round = itemView.findViewById(R.id.rela_round);
-      tvItem1 = itemView.findViewById(R.id.tv_recycler_item_1);
+      tvHostname = itemView.findViewById(R.id.tv_item_hostname);
+      tvIpAddress = itemView.findViewById(R.id.tv_item_ip);
+      tvDataCenter = itemView.findViewById(R.id.tv_item_data_center);
     }
   }
 
