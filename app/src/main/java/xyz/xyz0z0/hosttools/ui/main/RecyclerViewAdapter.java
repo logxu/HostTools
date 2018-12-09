@@ -20,6 +20,8 @@ import java.util.List;
 import xyz.xyz0z0.hosttools.R;
 import xyz.xyz0z0.hosttools.database.ServiceInfo;
 
+import static xyz.xyz0z0.hosttools.utils.ServerDataUtil.byteToGB;
+
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements onMoveAndSwipedListener {
 
   private final int TYPE_NORMAL = 1;
@@ -138,6 +140,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
       recyclerViewHolder.tvHostname.setText(((ServiceInfo) mItems.get(position)).getHostname());
       recyclerViewHolder.tvIpAddress.setText(((ServiceInfo) mItems.get(position)).getIp_addresses().get(0));
       recyclerViewHolder.tvDataCenter.setText(((ServiceInfo) mItems.get(position)).getNode_datacenter());
+      String dataCounter = byteToGB(((ServiceInfo) mItems.get(position)).getData_counter());
+      String dataPlan = byteToGB(((ServiceInfo) mItems.get(position)).getPlan_monthly_data());
+      String dataStr = dataCounter + " / " + dataPlan;
+      recyclerViewHolder.tvDataCounter.setText(dataStr);
 
     }
   }
@@ -183,6 +189,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private TextView tvHostname;
     private TextView tvIpAddress;
     private TextView tvDataCenter;
+    private TextView tvDataCounter;
 
 
     private RecyclerViewHolder(@NonNull View itemView) {
@@ -192,6 +199,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
       tvHostname = itemView.findViewById(R.id.tv_item_hostname);
       tvIpAddress = itemView.findViewById(R.id.tv_item_ip);
       tvDataCenter = itemView.findViewById(R.id.tv_item_data_center);
+      tvDataCounter = itemView.findViewById(R.id.tv_item_data_counter);
     }
   }
 

@@ -103,13 +103,13 @@ public class MainActivity extends AppCompatActivity {
     if (getSupportActionBar() != null) {
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-    initData();
+    loadData();
     initView();
 
   }
 
 
-  private void initData() {
+  private void loadData() {
     dataRepository = DataRepository.getDefault();
     serverData = new ArrayList<>();
     data = new ArrayList<>();
@@ -117,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
       serverData.addAll(dataRepository.getServiceInfoList());
       data.addAll(dataRepository.getServiceInfoList());
     }
-
     insertData = "0";
     loadTimes = 0;
   }
@@ -150,8 +149,7 @@ public class MainActivity extends AppCompatActivity {
       @Override public void onRefresh() {
         new Handler().postDelayed(new Runnable() {
           @Override public void run() {
-            adapter.addItems(serverData);
-            adapter.addFooter();
+
             loading = false;
             if (color > 4) {
               color = 0;
