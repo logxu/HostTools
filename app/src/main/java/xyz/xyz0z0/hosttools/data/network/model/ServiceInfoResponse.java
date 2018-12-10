@@ -1,4 +1,4 @@
-package xyz.xyz0z0.hosttools.net.response;
+package xyz.xyz0z0.hosttools.data.network.model;
 
 import java.util.List;
 

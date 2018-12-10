@@ -1,4 +1,4 @@
-package xyz.xyz0z0.hosttools.database;
+package xyz.xyz0z0.hosttools.data.db;
 
 import androidx.room.TypeConverter;
 import com.google.gson.Gson;

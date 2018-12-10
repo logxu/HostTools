@@ -8,9 +8,9 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import java.util.List;
-import xyz.xyz0z0.hosttools.database.RoomDb;
-import xyz.xyz0z0.hosttools.database.ServiceInfo;
-import xyz.xyz0z0.hosttools.database.ServiceInfoDao;
+import xyz.xyz0z0.hosttools.data.db.RoomDb;
+import xyz.xyz0z0.hosttools.data.db.ServiceInfo;
+import xyz.xyz0z0.hosttools.data.db.ServiceInfoDao;
 
 import static xyz.xyz0z0.hosttools.MvpApp.getAppContext;
 

@@ -1,4 +1,4 @@
-package xyz.xyz0z0.hosttools.database;
+package xyz.xyz0z0.hosttools.data.db;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -6,7 +6,7 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import java.util.List;
-import xyz.xyz0z0.hosttools.net.response.ServiceInfoResponse;
+import xyz.xyz0z0.hosttools.data.network.model.ServiceInfoResponse;
 
 /**
  * Created by chengxg

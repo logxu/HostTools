@@ -1,4 +1,4 @@
-package xyz.xyz0z0.hosttools.net;
+package xyz.xyz0z0.hosttools.data.network;
 
 import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
@@ -7,7 +7,6 @@ import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import xyz.xyz0z0.hosttools.net.api.ApiService;
 
 /**
  * Created by chengxg

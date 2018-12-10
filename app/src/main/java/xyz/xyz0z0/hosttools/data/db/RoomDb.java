@@ -1,4 +1,4 @@
-package xyz.xyz0z0.hosttools.database;
+package xyz.xyz0z0.hosttools.data.db;
 
 import android.content.Context;
 import androidx.room.Database;

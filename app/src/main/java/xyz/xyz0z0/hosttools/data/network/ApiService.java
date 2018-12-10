@@ -1,9 +1,9 @@
-package xyz.xyz0z0.hosttools.net.api;
+package xyz.xyz0z0.hosttools.data.network;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import xyz.xyz0z0.hosttools.net.response.ServiceInfoResponse;
+import xyz.xyz0z0.hosttools.data.network.model.ServiceInfoResponse;
 
 /**
  * Created by chengxg

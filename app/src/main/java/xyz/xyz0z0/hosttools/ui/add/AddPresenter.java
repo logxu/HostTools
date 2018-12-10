@@ -13,9 +13,9 @@ import io.reactivex.schedulers.Schedulers;
 import xyz.xyz0z0.hosttools.R;
 import xyz.xyz0z0.hosttools.constants.NetErrorCode;
 import xyz.xyz0z0.hosttools.data.DataRepository;
-import xyz.xyz0z0.hosttools.database.ServiceInfo;
-import xyz.xyz0z0.hosttools.net.Network;
-import xyz.xyz0z0.hosttools.net.response.ServiceInfoResponse;
+import xyz.xyz0z0.hosttools.data.db.ServiceInfo;
+import xyz.xyz0z0.hosttools.data.network.Network;
+import xyz.xyz0z0.hosttools.data.network.model.ServiceInfoResponse;
 
 /**
  * Created by chengxg

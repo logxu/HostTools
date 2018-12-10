@@ -19,7 +19,7 @@ import java.util.List;
 import xyz.xyz0z0.hosttools.R;
 import xyz.xyz0z0.hosttools.base.BaseActivity;
 import xyz.xyz0z0.hosttools.data.DataRepository;
-import xyz.xyz0z0.hosttools.database.ServiceInfo;
+import xyz.xyz0z0.hosttools.data.db.ServiceInfo;
 
 public class MainActivity extends BaseActivity<MainContract.Presenter> implements MainContract.View {
 

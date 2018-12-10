@@ -3,7 +3,7 @@ package xyz.xyz0z0.hosttools.ui.main;
 import java.util.List;
 import xyz.xyz0z0.hosttools.base.MvpPresenter;
 import xyz.xyz0z0.hosttools.base.MvpView;
-import xyz.xyz0z0.hosttools.database.ServiceInfo;
+import xyz.xyz0z0.hosttools.data.db.ServiceInfo;
 
 /**
  * Created by chengxg
