@@ -1,4 +1,4 @@
-package xyz.xyz0z0.hosttools.data.network;
+package xyz.xyz0z0.hosttools.data.network.base;
 
 import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;

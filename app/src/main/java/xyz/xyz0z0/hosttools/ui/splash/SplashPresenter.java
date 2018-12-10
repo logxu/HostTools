@@ -22,7 +22,7 @@ public class SplashPresenter implements SplashContract.Presenter {
 
 
   @Override public void decideNextActivity() {
-    if (mDataRepository.getServerExists()) {
+    if (mDataRepository.isServerExists()) {
       mSplashContract.openMainActivity();
     } else {
       mSplashContract.openAddServerActivity();

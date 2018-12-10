@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import xyz.xyz0z0.hosttools.R;
-import xyz.xyz0z0.hosttools.data.db.ServiceInfo;
+import xyz.xyz0z0.hosttools.data.db.base.ServiceInfo;
 
 import static xyz.xyz0z0.hosttools.utils.ServerDataUtil.byteToGB;
 

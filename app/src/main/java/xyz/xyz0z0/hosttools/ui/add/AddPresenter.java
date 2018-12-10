@@ -13,8 +13,7 @@ import io.reactivex.schedulers.Schedulers;
 import xyz.xyz0z0.hosttools.R;
 import xyz.xyz0z0.hosttools.constants.NetErrorCode;
 import xyz.xyz0z0.hosttools.data.DataRepository;
-import xyz.xyz0z0.hosttools.data.db.ServiceInfo;
-import xyz.xyz0z0.hosttools.data.network.Network;
+import xyz.xyz0z0.hosttools.data.db.base.ServiceInfo;
 import xyz.xyz0z0.hosttools.data.network.model.ServiceInfoResponse;
 
 /**
@@ -40,26 +39,34 @@ public class AddPresenter implements AddContract.Presenter {
   }
 
 
-  @Override public void submit(String veid, String apikey) {
+  @Override public void submit(String id, String key) {
     mAddServerView.showLoadingDialog(R.string.base_loading_text);
-    Disposable d = Network.getApiService()
-        .getServiceInfo(veid, apikey)
+    Disposable d = mDataRepository.getServiceInfo(id, key)
         .flatMap(new Function<ServiceInfoResponse, ObservableSource<Long>>() {
-          @Override public ObservableSource<Long> apply(ServiceInfoResponse response) throws Exception {
-            if (response.getError() == NetErrorCode.SUCCESS) {
-              ServiceInfo info = new ServiceInfo(Integer.parseInt(veid), apikey, response);
-              return mDataRepository.addServer(info);
+          @Override public ObservableSource<Long> apply(ServiceInfoResponse serviceInfoResponse) throws Exception {
+            if (serviceInfoResponse.getError() == NetErrorCode.SUCCESS) {
+              ServiceInfo info = new ServiceInfo(Integer.parseInt(id), key, serviceInfoResponse);
+              return mDataRepository.addServer(info).toObservable();
             } else {
               return Observable.just(0L);
             }
           }
         })
+        .map(new Function<Long, Boolean>() {
+          @Override public Boolean apply(Long aLong) {
+            if (aLong > 0) {
+              mDataRepository.setServerExists(true);
+              return true;
+            }
+            return false;
+          }
+        })
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Consumer<Long>() {
-          @Override public void accept(Long aLong) throws Exception {
+        .subscribe(new Consumer<Boolean>() {
+          @Override public void accept(Boolean b) throws Exception {
             mAddServerView.dismissLoadingDialog();
-            if (aLong > 0) {
+            if (b) {
               mAddServerView.showToast(R.string.add_server_success);
               mAddServerView.exitActivity();
             } else {

@@ -1,4 +1,4 @@
-package xyz.xyz0z0.hosttools.data.db;
+package xyz.xyz0z0.hosttools.data.db.base;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

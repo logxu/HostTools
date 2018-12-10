@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import java.util.List;
 import xyz.xyz0z0.hosttools.data.DataRepository;
-import xyz.xyz0z0.hosttools.data.db.ServiceInfo;
+import xyz.xyz0z0.hosttools.data.db.base.ServiceInfo;
 
 /**
  * Created by chengxg

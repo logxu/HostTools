@@ -1,4 +1,4 @@
-package xyz.xyz0z0.hosttools.data.network;
+package xyz.xyz0z0.hosttools.data.network.base;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
