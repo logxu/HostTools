@@ -9,6 +9,7 @@
     <string name="base_dialog_ok">确定</string>
 
     <string name="add_server_success">添加服务器成功</string>
+    <string name="add_server_error">添加服务器错误，请检查网络设置</string>
     <string name="add_server_fail">添加服务器失败</string>
     <string name="add_server_repeat_fail">服务器已存在</string>
 

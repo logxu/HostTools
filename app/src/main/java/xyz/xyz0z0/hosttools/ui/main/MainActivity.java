@@ -6,7 +6,6 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -16,18 +15,20 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import java.util.ArrayList;
 import java.util.List;
 import xyz.xyz0z0.hosttools.R;
+import xyz.xyz0z0.hosttools.base.BaseActivity;
 import xyz.xyz0z0.hosttools.data.DataRepository;
 import xyz.xyz0z0.hosttools.database.ServiceInfo;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity<MainContract.Presenter> implements MainContract.View {
 
   @BindView(R.id.swipe_refresh_layout_recycler_view) SwipeRefreshLayout swipeRefreshLayout;
   @BindView(R.id.recycler_view) RecyclerView recyclerView;
   // @BindView(R.id.main_act_toolbar) Toolbar toolbar;
   private FloatingActionButton fab;
+
+  private MainContract.Presenter mMainPresenter;
 
   private int color = 0;
   private List<ServiceInfo> serverData;
@@ -88,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
         //
 
       }
-
     }
   };
 
@@ -103,26 +103,12 @@ public class MainActivity extends AppCompatActivity {
     if (getSupportActionBar() != null) {
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-    loadData();
+    new MainPresenter(this);
     initView();
-
   }
 
 
-  private void loadData() {
-    dataRepository = DataRepository.getDefault();
-    serverData = new ArrayList<>();
-    data = new ArrayList<>();
-    for (int i = 0; i < 2; i++) {
-      serverData.addAll(dataRepository.getServiceInfoList());
-      data.addAll(dataRepository.getServiceInfoList());
-    }
-    insertData = "0";
-    loadTimes = 0;
-  }
-
-
-  private void initView() {
+  @Override public void initView() {
     if (getScreenWidthDp() >= 1200) {
       final GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
       recyclerView.setLayoutManager(gridLayoutManager);
@@ -133,12 +119,11 @@ public class MainActivity extends AppCompatActivity {
       final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
       recyclerView.setLayoutManager(linearLayoutManager);
     }
-
     adapter = new RecyclerViewAdapter(this);
     recyclerView.setAdapter(adapter);
-    adapter.addHeader();
-    adapter.setItems(serverData);
-    adapter.addFooter();
+    // adapter.addHeader();
+    // adapter.setItems(serverData);
+    // adapter.addFooter();
 
     ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(adapter);
     ItemTouchHelper mItemTouchHelper = new ItemTouchHelper(callback);
@@ -165,8 +150,39 @@ public class MainActivity extends AppCompatActivity {
   }
 
 
+  @Override public void showData(List<ServiceInfo> data) {
+    // dataRepository = DataRepository.getDefault();
+    // serverData = new ArrayList<>();
+    // data = new ArrayList<>();
+    // for (int i = 0; i < 2; i++) {
+    //   serverData.addAll(dataRepository.getServiceInfoList());
+    //   data.addAll(dataRepository.getServiceInfoList());
+    // }
+    adapter.addItems(data);
+    insertData = "0";
+    loadTimes = 0;
+  }
+
+
   private int getScreenWidthDp() {
     DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
     return (int) (displayMetrics.widthPixels / displayMetrics.density);
+  }
+
+
+  @Override public void setPresenter(MainContract.Presenter presenter) {
+    mMainPresenter = presenter;
+  }
+
+
+  @Override protected void onResume() {
+    super.onResume();
+    mMainPresenter.subscribe();
+  }
+
+
+  @Override protected void onPause() {
+    super.onPause();
+    mMainPresenter.unsubscribe();
   }
 }

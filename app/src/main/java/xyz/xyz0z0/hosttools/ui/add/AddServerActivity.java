@@ -12,10 +12,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import java.util.Objects;
-import xyz.xyz0z0.hosttools.MvpApp;
 import xyz.xyz0z0.hosttools.R;
 import xyz.xyz0z0.hosttools.base.BaseActivity;
-import xyz.xyz0z0.hosttools.data.DataManager;
 import xyz.xyz0z0.hosttools.ui.main.MainActivity;
 
 public class AddServerActivity extends BaseActivity<AddContract.Presenter> implements AddContract.View {
@@ -94,4 +92,6 @@ public class AddServerActivity extends BaseActivity<AddContract.Presenter> imple
   @Override public void exitActivity() {
     finish();
   }
+
+
 }

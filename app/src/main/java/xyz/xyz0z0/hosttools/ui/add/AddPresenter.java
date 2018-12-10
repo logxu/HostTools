@@ -35,7 +35,6 @@ public class AddPresenter implements AddContract.Presenter {
   public AddPresenter(@NonNull AddContract.View addServerView) {
     this.mAddServerView = addServerView;
     mCompositeDisposable = new CompositeDisposable();
-    // serviceInfoDao = ((MvpApp) (((AddServerActivity) mAddServerView).getApplication())).getDb().serviceInfoDao();
     mAddServerView.setPresenter(this);
     mDataRepository = DataRepository.getDefault();
   }
@@ -73,7 +72,7 @@ public class AddPresenter implements AddContract.Presenter {
             if (throwable instanceof SQLiteConstraintException) {
               mAddServerView.showErrorDialog(R.string.add_server_repeat_fail, null);
             } else {
-              mAddServerView.showErrorDialog(R.string.add_server_fail, null);
+              mAddServerView.showErrorDialog(R.string.add_server_error, null);
             }
             throwable.printStackTrace();
           }

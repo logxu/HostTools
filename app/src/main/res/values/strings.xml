@@ -8,6 +8,7 @@
     <string name="base_dialog_ok">OK</string>
 
     <string name="add_server_success">Add server success.</string>
+    <string name="add_server_error">Add server error, please check net settings.</string>
     <string name="add_server_fail">Add server fail.</string>
     <string name="add_server_repeat_fail">Repeat server.</string>
 
