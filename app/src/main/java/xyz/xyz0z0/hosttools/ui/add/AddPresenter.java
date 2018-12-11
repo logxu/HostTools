@@ -39,13 +39,13 @@ public class AddPresenter implements AddContract.Presenter {
   }
 
 
-  @Override public void submit(String id, String key) {
+  @Override public void submit(int id, String key) {
     mAddServerView.showLoadingDialog(R.string.base_loading_text);
     Disposable d = mDataRepository.getServiceInfo(id, key)
         .flatMap(new Function<ServiceInfoResponse, ObservableSource<Long>>() {
           @Override public ObservableSource<Long> apply(ServiceInfoResponse serviceInfoResponse) throws Exception {
             if (serviceInfoResponse.getError() == NetErrorCode.SUCCESS) {
-              ServiceInfo info = new ServiceInfo(Integer.parseInt(id), key, serviceInfoResponse);
+              ServiceInfo info = new ServiceInfo(id, key, serviceInfoResponse);
               return mDataRepository.addServer(info).toObservable();
             } else {
               return Observable.just(0L);

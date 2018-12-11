@@ -12,6 +12,6 @@ public interface DatabaseSource {
 
   Flowable<List<ServiceInfo>> getAllService();
 
-  Maybe<Long> updateServer(ServiceInfo serviceInfo);
+  Maybe<Integer> updateServer(ServiceInfo serviceInfo);
 
 }

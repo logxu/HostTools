@@ -30,7 +30,7 @@ public class DatabaseHelper implements DatabaseSource {
   }
 
 
-  @Override public Maybe<Long> updateServer(ServiceInfo serviceInfo) {
+  @Override public Maybe<Integer> updateServer(ServiceInfo serviceInfo) {
     return serviceInfoDao.update(serviceInfo);
   }
 }

@@ -42,7 +42,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
   public void setItems(List<ServiceInfo> data) {
-    this.mItems.addAll(data);
+    mItems.clear();
+    mItems.addAll(data);
     notifyDataSetChanged();
   }
 

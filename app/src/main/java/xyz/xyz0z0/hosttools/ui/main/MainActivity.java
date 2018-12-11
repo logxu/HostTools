@@ -1,9 +1,11 @@
 package xyz.xyz0z0.hosttools.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -18,25 +20,21 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 import xyz.xyz0z0.hosttools.R;
 import xyz.xyz0z0.hosttools.base.BaseActivity;
-import xyz.xyz0z0.hosttools.data.DataRepository;
 import xyz.xyz0z0.hosttools.data.db.base.ServiceInfo;
+import xyz.xyz0z0.hosttools.ui.add.AddServerActivity;
 
 public class MainActivity extends BaseActivity<MainContract.Presenter> implements MainContract.View {
 
   @BindView(R.id.swipe_refresh_layout_recycler_view) SwipeRefreshLayout swipeRefreshLayout;
   @BindView(R.id.recycler_view) RecyclerView recyclerView;
   // @BindView(R.id.main_act_toolbar) Toolbar toolbar;
-  private FloatingActionButton fab;
+  @BindView(R.id.fab_recycler_view) FloatingActionButton fab;
 
   private MainContract.Presenter mMainPresenter;
 
   private int color = 0;
-  private List<ServiceInfo> serverData;
-  private List<ServiceInfo> data;
-  private String insertData;
   private boolean loading;
   private int loadTimes;
-  private DataRepository dataRepository;
   private RecyclerViewAdapter adapter;
   RecyclerView.OnScrollListener scrollChangeListener = new RecyclerView.OnScrollListener() {
     @Override public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -71,7 +69,6 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
             if (loadTimes <= 3) {
               adapter.removeFooter();
               loading = false;
-              adapter.addItems(data);
               adapter.addFooter();
               loadTimes++;
             } else {
@@ -105,6 +102,12 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
     }
     new MainPresenter(this);
     initView();
+    fab.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        Intent intent = new Intent(MainActivity.this, AddServerActivity.class);
+        startActivity(intent);
+      }
+    });
   }
 
 
@@ -146,7 +149,6 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
       }
     });
     recyclerView.addOnScrollListener(scrollChangeListener);
-
   }
 
 
@@ -158,8 +160,7 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
     //   serverData.addAll(dataRepository.getServiceInfoList());
     //   data.addAll(dataRepository.getServiceInfoList());
     // }
-    adapter.addItems(data);
-    insertData = "0";
+    adapter.setItems(data);
     loadTimes = 0;
   }
 

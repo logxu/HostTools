@@ -49,7 +49,7 @@ public class MainPresenter implements MainContract.Presenter {
           @Override public void accept(List<ServiceInfo> serviceInfos) throws Exception {
             mServiceInfos = serviceInfos;
             mMainView.showData(serviceInfos);
-            Log.d("cxg", "loadDbData");
+            Log.d("cxgxx", "loadDbData " + serviceInfos.size());
           }
         }, new Consumer<Throwable>() {
           @Override public void accept(Throwable throwable) throws Exception {
@@ -66,21 +66,21 @@ public class MainPresenter implements MainContract.Presenter {
 
     for (ServiceInfo serviceInfo : mServiceInfos) {
       Disposable d = mDataRepository.getServiceInfo(serviceInfo.getVeId(), serviceInfo.getApiKey())
-          .flatMap(new Function<ServiceInfoResponse, ObservableSource<Long>>() {
-            @Override public ObservableSource<Long> apply(ServiceInfoResponse serviceInfoResponse) throws Exception {
+          .flatMap(new Function<ServiceInfoResponse, ObservableSource<Integer>>() {
+            @Override public ObservableSource<Integer> apply(ServiceInfoResponse serviceInfoResponse) throws Exception {
               if (serviceInfoResponse.getError() == NetErrorCode.SUCCESS) {
                 ServiceInfo info = new ServiceInfo(serviceInfo.getVeId(), serviceInfo.getApiKey(), serviceInfoResponse);
                 return mDataRepository.updateServer(info).toObservable();
               } else {
-                return Observable.just(0L);
+                return Observable.just(0);
               }
             }
           })
           .subscribeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread())
-          .subscribe(new Consumer<Long>() {
-            @Override public void accept(Long aLong) throws Exception {
-              Log.d("cxg", "aLong " + aLong);
+          .subscribe(new Consumer<Integer>() {
+            @Override public void accept(Integer aLong) throws Exception {
+              Log.d("cxgxx", "aLong " + aLong);
 
             }
           }, new Consumer<Throwable>() {

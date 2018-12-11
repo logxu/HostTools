@@ -78,9 +78,14 @@ public class AddServerActivity extends BaseActivity<AddContract.Presenter> imple
 
 
   @Override public void onSubmitButtonClick() {
-    String veid = Objects.requireNonNull(etId.getText()).toString();
-    String apikey = Objects.requireNonNull(etKey.getText()).toString();
-    mAddPresenter.submit(veid, apikey);
+    String idStr = Objects.requireNonNull(etId.getText()).toString();
+    try {
+      int id = Integer.parseInt(idStr);
+      String key = Objects.requireNonNull(etKey.getText()).toString();
+      mAddPresenter.submit(id, key);
+    } catch (NumberFormatException e) {
+      e.printStackTrace();
+    }
   }
 
 
@@ -92,6 +97,5 @@ public class AddServerActivity extends BaseActivity<AddContract.Presenter> imple
   @Override public void exitActivity() {
     finish();
   }
-
 
 }

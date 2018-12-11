@@ -49,8 +49,7 @@ public class DataRepository implements DataSource {
   }
 
 
-
-  @Override public Observable<ServiceInfoResponse> getServiceInfo(String id, String key) {
+  @Override public Observable<ServiceInfoResponse> getServiceInfo(int id, String key) {
     return mApiHelper.getServiceInfo(id, key);
   }
 
@@ -75,7 +74,7 @@ public class DataRepository implements DataSource {
   }
 
 
-  @Override public Single<Integer> updateAllServer(ServiceInfo[] user) {
-    return mDatabaseHelper.updateAllServer(user);
+  @Override public Maybe<Integer> updateServer(ServiceInfo user) {
+    return mDatabaseHelper.updateServer(user);
   }
 }

@@ -23,7 +23,7 @@ public interface AddContract {
 
   interface Presenter extends MvpPresenter {
 
-    void submit(String veid,String apikey);
+    void submit(int id,String key);
 
   }
 }
