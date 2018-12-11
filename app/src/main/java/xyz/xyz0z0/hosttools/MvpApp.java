@@ -2,8 +2,6 @@ package xyz.xyz0z0.hosttools;
 
 import android.app.Application;
 import android.content.Context;
-import com.tencent.mmkv.MMKV;
-import xyz.xyz0z0.hosttools.data.DataRepository;
 
 /**
  * Created by chengxg
@@ -29,7 +27,6 @@ public class MvpApp extends Application {
     if (mInstance == null) {
       mInstance = this;
     }
-    MMKV.initialize(this);
 
   }
 

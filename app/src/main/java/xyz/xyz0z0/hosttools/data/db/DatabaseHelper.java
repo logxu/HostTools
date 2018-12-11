@@ -2,6 +2,7 @@ package xyz.xyz0z0.hosttools.data.db;
 
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 import java.util.List;
 import xyz.xyz0z0.hosttools.data.db.base.RoomDb;
 import xyz.xyz0z0.hosttools.data.db.base.ServiceInfo;
@@ -26,5 +27,10 @@ public class DatabaseHelper implements DatabaseSource {
 
   @Override public Flowable<List<ServiceInfo>> getAllService() {
     return serviceInfoDao.queryAllInfo();
+  }
+
+
+  @Override public Maybe<Long> updateServer(ServiceInfo serviceInfo) {
+    return serviceInfoDao.update(serviceInfo);
   }
 }

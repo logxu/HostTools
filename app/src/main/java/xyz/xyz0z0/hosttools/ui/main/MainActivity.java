@@ -134,7 +134,7 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
       @Override public void onRefresh() {
         new Handler().postDelayed(new Runnable() {
           @Override public void run() {
-
+            mMainPresenter.refresh();
             loading = false;
             if (color > 4) {
               color = 0;

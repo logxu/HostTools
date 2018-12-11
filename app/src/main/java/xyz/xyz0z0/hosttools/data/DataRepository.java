@@ -3,6 +3,7 @@ package xyz.xyz0z0.hosttools.data;
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import java.util.List;
 import xyz.xyz0z0.hosttools.data.db.DatabaseHelper;
 import xyz.xyz0z0.hosttools.data.db.DatabaseSource;
@@ -71,5 +72,10 @@ public class DataRepository implements DataSource {
 
   @Override public Flowable<List<ServiceInfo>> getAllService() {
     return mDatabaseHelper.getAllService();
+  }
+
+
+  @Override public Single<Integer> updateAllServer(ServiceInfo[] user) {
+    return mDatabaseHelper.updateAllServer(user);
   }
 }
