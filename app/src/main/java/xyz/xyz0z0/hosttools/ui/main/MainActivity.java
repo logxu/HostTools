@@ -17,7 +17,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import io.reactivex.Flowable;
+import io.reactivex.functions.Function;
+import java.util.ArrayList;
 import java.util.List;
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
 import xyz.xyz0z0.hosttools.R;
 import xyz.xyz0z0.hosttools.base.BaseActivity;
 import xyz.xyz0z0.hosttools.data.db.base.ServiceInfo;
@@ -108,6 +113,65 @@ public class MainActivity extends BaseActivity<MainContract.Presenter> implement
         startActivity(intent);
       }
     });
+
+    demo();
+  }
+
+
+  private void demo() {
+
+    // //
+    // Observable.fromArray(Arrays.asList(new String[] {"1", "2", "3", }))
+    //     .map(new Function<List<String>, Object>() {
+    //       @Override public Object apply(List<String> s) throws Exception {
+    //         return Integer.valueOf(s);
+    //       }
+    //     })
+    //     .reduce(new ArrayList<Integer>, (list, s) -> {
+    //       list.add(s);
+    //       return list;
+    //     })
+    //     .subscribe(new Consumer<ArrayList<Integer>>() {
+    //       @Override public void accept(ArrayList<Integer> i) throws Exception {
+    //         // Do some thing with 'i', it's a list of Integer.
+    //       }
+    //     });
+
+    List<String> list = new ArrayList<>();
+    list.add("ABC1");
+    list.add("ABC2");
+    list.add("ABC3");
+    Flowable.fromIterable(list)
+        .map(new Function<String, Object>() {
+          @Override public Object apply(String s) throws Exception {
+            Log.d("cxg11", " " + s);
+
+            return s + " --";
+          }
+        })
+        .subscribe(new Subscriber<Object>() {
+          @Override public void onSubscribe(Subscription s) {
+            Log.d("cxg11", "onSubscribe");
+            s.request(list.size());
+          }
+
+
+          @Override public void onNext(Object o) {
+            Log.d("cxg11", "onNext");
+            Log.d("cxg11", "onNext " + (String) o);
+          }
+
+
+          @Override public void onError(Throwable t) {
+            t.printStackTrace();
+            Log.d("cxg11", "onError");
+          }
+
+
+          @Override public void onComplete() {
+            Log.d("cxg11", "onComplete");
+          }
+        });
   }
 
 

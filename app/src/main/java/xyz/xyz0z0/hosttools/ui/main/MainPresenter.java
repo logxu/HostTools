@@ -2,7 +2,10 @@ package xyz.xyz0z0.hosttools.ui.main;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -10,6 +13,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import xyz.xyz0z0.hosttools.constants.NetErrorCode;
 import xyz.xyz0z0.hosttools.data.DataRepository;
@@ -62,7 +67,7 @@ public class MainPresenter implements MainContract.Presenter {
 
   @Override public void refresh() {
 
-    //
+
 
     for (ServiceInfo serviceInfo : mServiceInfos) {
       Disposable d = mDataRepository.getServiceInfo(serviceInfo.getVeId(), serviceInfo.getApiKey())
