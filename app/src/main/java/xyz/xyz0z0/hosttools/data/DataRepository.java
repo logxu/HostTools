@@ -1,20 +1,13 @@
 package xyz.xyz0z0.hosttools.data;
 
-import androidx.annotation.NonNull;
-import com.tencent.mmkv.MMKV;
+import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 import java.util.List;
 import xyz.xyz0z0.hosttools.data.db.DatabaseHelper;
 import xyz.xyz0z0.hosttools.data.db.DatabaseSource;
 import xyz.xyz0z0.hosttools.data.db.base.RoomDb;
 import xyz.xyz0z0.hosttools.data.db.base.ServiceInfo;
-import xyz.xyz0z0.hosttools.data.db.base.ServiceInfoDao;
 import xyz.xyz0z0.hosttools.data.network.ApiHelper;
 import xyz.xyz0z0.hosttools.data.network.ApiHelperSource;
 import xyz.xyz0z0.hosttools.data.network.model.ServiceInfoResponse;
@@ -34,22 +27,12 @@ public class DataRepository implements DataSource {
   private final ApiHelperSource mApiHelper;
   private final PreferencesSource mPreferencesHelper;
   private final DatabaseSource mDatabaseHelper;
-  private ServiceInfoDao infoDao;
-  @NonNull
-  private CompositeDisposable mCompositeDisposable;
-  private List<ServiceInfo> serviceInfoList;
-  private MMKV mmkv;
 
 
   private DataRepository() {
-    mmkv = MMKV.defaultMMKV();
     mApiHelper = new ApiHelper();
     mPreferencesHelper = new PreferencesHelper(getAppContext(), DEFAULT_PREFS);
     mDatabaseHelper = new DatabaseHelper(RoomDb.getDatabase(getAppContext()));
-    RoomDb db = RoomDb.getDatabase(getAppContext());
-    infoDao = db.serviceInfoDao();
-    mCompositeDisposable = new CompositeDisposable();
-    queryAllServer();
   }
 
 
@@ -64,37 +47,6 @@ public class DataRepository implements DataSource {
     return INSTANCE;
   }
 
-
-
-
-
-  public boolean getServerExists() {
-    return mmkv.getBoolean("is_server_exist", false);
-  }
-
-
-  public List<ServiceInfo> getServiceInfoList() {
-    return serviceInfoList;
-  }
-
-
-  public void queryAllServer() {
-    Disposable d = infoDao.queryAllInfo()
-        .subscribeOn(Schedulers.io())
-        .subscribe(new Consumer<List<ServiceInfo>>() {
-          @Override public void accept(List<ServiceInfo> serviceInfos) throws Exception {
-            serviceInfoList = serviceInfos;
-            if (serviceInfoList.size() > 0) {
-              mmkv.putBoolean("is_server_exist", true);
-            }
-          }
-        }, new Consumer<Throwable>() {
-          @Override public void accept(Throwable throwable) throws Exception {
-            throwable.printStackTrace();
-          }
-        });
-    mCompositeDisposable.add(d);
-  }
 
 
   @Override public Observable<ServiceInfoResponse> getServiceInfo(String id, String key) {
@@ -114,5 +66,10 @@ public class DataRepository implements DataSource {
 
   @Override public Maybe<Long> addServer(ServiceInfo serviceInfos) {
     return mDatabaseHelper.addServer(serviceInfos);
+  }
+
+
+  @Override public Flowable<List<ServiceInfo>> getAllService() {
+    return mDatabaseHelper.getAllService();
   }
 }

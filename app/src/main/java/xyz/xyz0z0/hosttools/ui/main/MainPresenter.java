@@ -1,9 +1,14 @@
 package xyz.xyz0z0.hosttools.ui.main;
 
 import androidx.annotation.NonNull;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import java.util.List;
 import xyz.xyz0z0.hosttools.data.DataRepository;
+import xyz.xyz0z0.hosttools.data.DataSource;
 import xyz.xyz0z0.hosttools.data.db.base.ServiceInfo;
 
 /**
@@ -17,7 +22,7 @@ public class MainPresenter implements MainContract.Presenter {
   @NonNull
   private CompositeDisposable mCompositeDisposable;
   @NonNull
-  private DataRepository mDataRepository;
+  private DataSource mDataRepository;
 
 
   public MainPresenter(@NonNull MainContract.View mainView) {
@@ -30,8 +35,19 @@ public class MainPresenter implements MainContract.Presenter {
 
   @Override
   public void loadDbData() {
-    List<ServiceInfo> data = mDataRepository.getServiceInfoList();
-    mMainView.showData(data);
+    Disposable d = mDataRepository.getAllService()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Consumer<List<ServiceInfo>>() {
+          @Override public void accept(List<ServiceInfo> serviceInfos) throws Exception {
+            mMainView.showData(serviceInfos);
+          }
+        }, new Consumer<Throwable>() {
+          @Override public void accept(Throwable throwable) throws Exception {
+
+          }
+        });
+    mCompositeDisposable.add(d);
   }
 
 
