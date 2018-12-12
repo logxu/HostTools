@@ -22,6 +22,7 @@ import xyz.xyz0z0.hosttools.data.db.base.ServiceInfo;
 
 import static xyz.xyz0z0.hosttools.utils.ServerDataUtil.byteToGB;
 
+
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements onMoveAndSwipedListener {
 
   private final int TYPE_NORMAL = 1;
@@ -38,6 +39,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
   public RecyclerViewAdapter(Context context) {
     this.context = context;
     mItems = new ArrayList<>();
+
+
   }
 
 
