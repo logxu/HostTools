@@ -37,7 +37,7 @@ public class SplashActivity extends BaseActivity<SplashContract.Presenter> imple
   @Override public void openAddServerActivity() {
     Intent intent = new Intent(this, AddServerActivity.class);
     startActivity(intent);
-    // finish();
+    finish();
   }
 
 
